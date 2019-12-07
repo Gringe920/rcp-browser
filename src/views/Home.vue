@@ -44,7 +44,6 @@ export default {
     max-width: 1200px;
     margin: 0 auto;
     .searchbox {
-      border: 1px solid red;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -55,8 +54,7 @@ export default {
         height: 36px;
         border: none;
         padding-left: 10px;
-        border: 1px solid red;
-        background: rgba(0, 0, 0, 0.87);
+        background: rgba(0, 0, 0, 0.5);
         color: #ffffff;
       }
       .go {
