@@ -3,7 +3,7 @@
   <Header></Header>
   <div class="homeContent">
       <div class="searchbox">
-    <input type="text" placeholder="" v-model="serachtext">
+    <input type="text" placeholder="请输入搜索内容" v-model="serachtext">
     <div class="go">go</div>
   </div>
   <accountsExplorer></accountsExplorer>
