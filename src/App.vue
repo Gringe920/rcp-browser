@@ -11,6 +11,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+body,html{
+  min-height: 100%;
+}
 </style>

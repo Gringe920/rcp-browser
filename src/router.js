@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 const Trade = () => import(/* webpackChunkName: "Trade" */ './views/trade/index.vue');
+const accountsExplorer = () => import(/* webpackChunkName: "Trade" */ './views/accountsExplorer/index.vue');
 
 Vue.use(Router)
 export default new Router({
@@ -19,5 +20,11 @@ export default new Router({
         path: '/trade',
         name: 'trade',
         component: Trade
-    }]
+    },
+    {
+        path: '/accountsExplorer',
+        name: 'accountsExplorer',
+        component: accountsExplorer
+    }
+]
 })
