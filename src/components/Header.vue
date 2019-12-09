@@ -62,6 +62,7 @@ export default {
         top:40px;
         padding: 10px 0;
         background: #ffffff;
+        right: -10px;
         div{
           width:112px;
           padding: 10px;
