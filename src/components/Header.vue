@@ -4,16 +4,29 @@
       <div class="header_l">
         <img src="../assets/images/logo.png" alt="" srcset="">
       </div>  
-      <div class="header_r">
-        <div>English</div>
-        <img src="../assets/images/triangle_gray@2x.png" alt="" srcset="">
+      <div class="header_r" @click="show =!show">
+        <div class="div1" >English</div>
+        <img  v-if='!show' src="../assets/images/triangle_gray@2x.png" alt="" srcset="">
+          <img  v-else  src="../assets/images/triangle_gray_upper@2x.png" alt="" srcset="">
+        <div class="change" v-if="show">
+          <div :class="item == languange?'active':''" v-for="item in languangetype" :key='item'>{{item}}</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name:"",
+  data(){
+    return{
+      show:false,
+      languange:"English",
+      languangetype:['中文简体','English','русский язык']
+    }
+  }
+};
 </script>
 
 <style lang="scss">
@@ -42,7 +55,26 @@ export default {};
     .header_r {
       display: flex;
       align-items: center;
-      div {
+      position: relative;
+
+      .change{
+        position: absolute;
+        top:40px;
+        padding: 10px 0;
+        background: #ffffff;
+        div{
+          width:112px;
+          padding: 10px;
+          height:32px;
+          color:#8A8FA0;
+          font-size: 12px;
+        }
+        .active{
+          color: #00C28F;
+          background:rgba(0,194,143,0.2);
+        }
+      }
+      .div1 {
         color: #8A8FA0;
         font-size: 16px;
       }

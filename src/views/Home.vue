@@ -3,8 +3,8 @@
     <Header></Header>
     <div class="homeContent">
       <Search />
-      <accountsExplorer v-if="false"/>
-      <trade />
+      <accountsExplorer />
+      <trade v-if="false" />
     </div>
     <Footer></Footer>
   </div>

@@ -27,7 +27,7 @@ export default {
         height: 36px;
         border: none;
         padding-left: 10px;
-        background: rgba(0, 0, 0, 0.5);
+        background: #151d36;
         color: #ffffff;
       }
       .go {
