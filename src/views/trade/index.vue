@@ -3,6 +3,9 @@
       <div class="transactions-list">
         <div class="title">
           Transactions List
+          <div class="next-icon">
+            <i class="next-right"></i>
+          </div>
         </div>
         <div class="transaction-content">
           <div class="transaction-box">
@@ -53,12 +56,39 @@
           </span>
         </div>
         <div class="description-content">
-          <div class="status-box box"></div>
-          <div class="description-box box"></div>
-          <div class="memos-box box"></div>
-          <div class="cost-box box"></div>
-          <div class="flags-box box"></div>
-          <div class="affected-box box"></div>
+          <div class="status-box box">
+            <div class="des-title">STATUS：</div>
+            <div class="des-content">This transaction was successful, and validated in ledger <span class="green">51474924</span>  on <span class="blue">November 18, 2019 7:47 AM UTC.</span></div>
+          </div>
+          <div class="description-box box">
+            <div class="des-title">DESCRIPTION：</div>
+            <div class="des-content">This is a <span class="green">Payment</span> transaction.</div>
+            <div class="des-content">The payment is from  <span class="green">rkrELMpeE7Hqvc5T5Vv7cP3ENruwfpnqG</span> to<span>rfGX54DKEA13fq2oxLz1dM1uAVvfuE7K9u.</span></div>
+            <div class="des-content">It was instructed to deliver 0.146284 BTC. rfGX54DKEA13fq2oxLz1dM1uAVvfuE7K9u  by spending up to 0.146284 BTC.rfGX54DKEA13fq2oxLz1dM1uAVvfuE7K9u</div>
+            <div class="des-content">The actual amount delivered was 0.146284 BTC.rfGX54DKEA13fq2oxLz1dM1uAVvfuE7K9u</div>
+            <div class="des-content">The transaction's sequence number is 12559</div>
+          </div>
+          <div class="memos-box box">
+            <div class="des-title">MEMOS：</div>
+            <div class="des-content">The transaction has no memos.</div>
+          </div>
+          <div class="cost-box box">
+            <div class="des-title">TRANSACTION COST：</div>
+            <div class="des-content">Sending this transaction consumed 0.007099 XRP.</div>
+          </div>
+          <div class="flags-box box">
+            <div class="des-title">FLAGS：</div>
+            <div class="des-content">The transaction specified the following flags:</div>
+            <div class="des-content">● tfFullyCanonicalSig</div>
+            <div class="des-content">● tfPartialPayment</div>
+          </div>
+          <div class="affected-box box">
+            <div class="des-title">AFFECTED LEDGER NODES：</div>
+            <div class="des-content">● It modified the AccountRoot  node of rkrELMpeE7Hqvc5T5Vv7cP3ENruwfpnqG</div>
+            <div class="des-content">● Balance reduced by 0.007099 from 12.644348 to 12.637249 XRP</div>
+            <div class="des-content">● It modified a BTC RippleState  node between rfGX54DKEA13fq2oxLz1dM1uAVvfuE7K9u  and rkrELMpeE7Hqvc5T5Vv7cP3ENruwfpnqG</div>
+            <div class="des-content">● Balance changed by 0.146284 from 0.146282 to 0.292566 BTC</div>
+          </div>
           <div class="modified-box box"></div>
         </div>
         <div class="raw-content"></div>
@@ -87,6 +117,24 @@ export default {
       color: #fff;
       padding: 12px 10px;
       border-bottom: 1px solid #0C132F;
+      position: relative;
+      .next-icon{
+        width: 38px;
+        height: 38px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        i{
+          display:inline-block;
+          width: 14px;
+          height: 14px;
+          background-image: url('../../assets/images/next_right@2x.png');
+          background-size: 100% 100%;
+        }
+      }
       .d-title{
         display: inline-block;
         margin-right: 30px;
@@ -139,6 +187,32 @@ export default {
   }
   .description-raw{
     width: 70%;
+    .description-content{
+      
+      padding: 20px;
+      .box{
+        margin-bottom: 20px;
+        .des-title{
+          font-size: 14px;
+          color: #fff;
+          margin-bottom: 10px;
+        }
+        .des-content{
+          font-size: 12px;
+          color: #8A8FA0;
+          
+          span.green{
+            color: #00C28F;
+          }
+          span.blue{
+            color: #00CCFF;
+          }
+          i{
+
+          }
+        }
+      }
+    }
   }
 }
 
