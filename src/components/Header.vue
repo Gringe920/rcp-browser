@@ -109,13 +109,12 @@ export default {
       position: relative;
 
       .change {
-        width: auto;
         position: absolute;
         top: 40px;
         padding: 10px 0;
         background: #ffffff;
         right: -10px;
-        min-width: 110px;
+       width: 120px;
         div {
           padding: 10px;
           height: 32px;
