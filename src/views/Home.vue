@@ -20,7 +20,7 @@
         </div>
       </div>
       <accountsExplorer v-if="shouldShowAddressTrade == 'address'" :balances="balances" :history="transactions"/>
-      <trade v-if="shouldShowAddressTrade == 'trade'" />
+      <trade v-if="shouldShowAddressTrade == 'trade'" :transaction="transaction"/>
     </div>
     <Footer></Footer>
   </div>
@@ -39,12 +39,11 @@ export default {
       balances: [],
       transactions: [],
       msg: "",
-     
+      transaction: ""
     };
   },
   created() {
     this.initData();
-          this.shouldShowAddressTrade = "address";
   },
   components: {
     accountsExplorer,
@@ -63,8 +62,7 @@ export default {
       }
     },
     async handleSearch(ctx) {
-       this.msg = ''
-      console.log(ctx, "------searchContent");
+      this.msg = ''
       //验证输入内容是地址或者ID
       if (API.isValidAddress(ctx)) {
         console.log("isadress", "----------------");
@@ -74,34 +72,30 @@ export default {
           await API.connect();
           this.balances = await API.getBalances(ctx);
           this.transactions = await API.getTransactions(ctx);
+          console.log(this.transactions)
         } catch (err) {
           console.log("未查询到结果");
            this.msg = '该地址尚未查询到结果'
           console.log(err);
         }
-      } else if (/^[A-Z\d]+$/.test(ctx)) {
+      } else if (/^[A-F0-9]{64}$/.test(ctx)) {
         //大写字母跟数字
-        console.log("isID", "----------------");
-        //交易ID:99404A34E8170319521223A6C604AF48B9F1E3000C377E6141F9A1BF60B0B865
-        this.shouldShowAddressTrade = "trade";
-
+        //交易ID:C93F0E3A1C356BC5326A14726D415D6DDC5F657E51D32F3001EF8BABC10D90B0
         try {
           await API.connect();
-          const transaction = await API.getTransaction(ctx);
-          console.log(transaction);
+          this.transaction = await API.getTransaction(ctx);
+          this.shouldShowAddressTrade = "trade";
+          console.log(this.transaction)
         } catch (err) {
-          console.log("ID未查询到结果");
+          console.log(err)
           this.msg = "尚未查询到相关交易记录"
-          console.log(err);
         }
       } else {
-        console.log("地址或交易ID输入格式有误", "----------------");
         this.msg = "地址或交易ID输入格式有误！";
         this.shouldShowAddressTrade = "";
         //地址或交易TX有误
       }
     },
-    getBalancesData() {},
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <section class="trade-container">
-      <div class="transactions-list">
+      <!-- <div class="transactions-list">
         <div class="title">
           Transactions List
           <div class="next-icon">
@@ -45,7 +45,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="description-raw">
         <!-- title-tab -->
         <div class="title">
@@ -60,15 +60,16 @@
         <div class="description-content" v-if="activeIndex == 0">
           <div class="status-box box">
             <div class="des-title">STATUS：</div>
-            <div class="des-content">This transaction was successful, and validated in ledger <span class="green">51474924</span>  on <span class="blue">November 18, 2019 7:47 AM UTC.</span></div>
+            <div class="des-content">This transaction was successful, and validated in ledger <span class="green">{{transaction.outcome.ledgerVersion}}</span>  on <span class="blue">{{new Date(transaction.outcome.timestamp).toGMTString()}}.</span></div>
           </div>
           <div class="description-box box">
             <div class="des-title">DESCRIPTION：</div>
-            <div class="des-content">This is a <span class="green">Payment</span> transaction.</div>
-            <div class="des-content">The payment is from  <span class="green">rkrELMpeE7Hqvc5T5Vv7cP3ENruwfpnqG</span> to<span>rfGX54DKEA13fq2oxLz1dM1uAVvfuE7K9u.</span></div>
-            <div class="des-content">It was instructed to deliver 0.146284 BTC. rfGX54DKEA13fq2oxLz1dM1uAVvfuE7K9u  by spending up to 0.146284 BTC.rfGX54DKEA13fq2oxLz1dM1uAVvfuE7K9u</div>
-            <div class="des-content">The actual amount delivered was 0.146284 BTC.rfGX54DKEA13fq2oxLz1dM1uAVvfuE7K9u</div>
-            <div class="des-content">The transaction's sequence number is 12559</div>
+            <div class="des-content">This is a <span class="green">{{transaction.type}}</span> transaction.</div>
+            <div class="des-content">The payment is from  <span class="white">{{transaction.specification.destination.address}}</span> to <span class="white">{{transaction.address}}.</span></div>
+            <div class="des-content">It was instructed to deliver {{transaction.outcome.deliveredAmount.value}} {{transaction.outcome.deliveredAmount.currency}}. <span class="white">{{transaction.address}}</span>  by spending up to {{transaction.outcome.deliveredAmount.value}} </div>
+            <div class="des-content">{{transaction.outcome.deliveredAmount.currency}}.<span class="white">{{transaction.address}}</span></div>
+            <div class="des-content">The actual amount delivered was {{transaction.outcome.deliveredAmount.value}} {{transaction.outcome.deliveredAmount.currency}}.<span class="white">{{transaction.address}}</span></div>
+            <div class="des-content">The transaction's sequence number is {{transaction.sequence}}</div>
           </div>
           <div class="memos-box box">
             <div class="des-title">MEMOS：</div>
@@ -111,6 +112,7 @@
 
 <script>
 export default {
+  props: ["transaction"],
   created(){
     
   },
@@ -125,7 +127,7 @@ export default {
 <style lang="scss" scoped>
 .trade-container{
   display: flex;
-  justify-content:space-between;
+  justify-content:center;
   .transactions-list, .description-raw{
     background-color: #151d36;
     .title{
@@ -202,7 +204,7 @@ export default {
     }
   }
   .description-raw{
-    width: 70%;
+    width: 85%;
     color: #8A8FA0;
     
     span.green{
@@ -210,6 +212,9 @@ export default {
     }
     span.blue{
       color: #00CCFF;
+    }
+    span.white{
+      color: #fff;
     }
     .description-content{
       padding: 20px;
