@@ -3,7 +3,9 @@ const header = () => import(/* webpackChunkName: "components" */ '../components/
 const footer = () => import(/* webpackChunkName: "components" */ '../components/Footer');
 const Search = () => import(/* webpackChunkName: "components" */ '../components/Search');
 const msg = () => import(/* webpackChunkName: "components" */ '../components/Msg');
+const empty = () => import(/* webpackChunkName: "components" */ '../components/empty');
 Vue.component('Header', header);
 Vue.component('Footer', footer);
 Vue.component('Msg', msg);
 Vue.component('Search', Search);
+Vue.component('Empty', empty);

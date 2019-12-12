@@ -44,6 +44,7 @@ export default {
   },
   created() {
     this.initData();
+          this.shouldShowAddressTrade = "address";
   },
   components: {
     accountsExplorer,
@@ -62,6 +63,7 @@ export default {
       }
     },
     async handleSearch(ctx) {
+       this.msg = ''
       console.log(ctx, "------searchContent");
       //验证输入内容是地址或者ID
       if (API.isValidAddress(ctx)) {
@@ -74,6 +76,7 @@ export default {
           this.transactions = await API.getTransactions(ctx);
         } catch (err) {
           console.log("未查询到结果");
+           this.msg = '该地址尚未查询到结果'
           console.log(err);
         }
       } else if (/^[A-Z\d]+$/.test(ctx)) {
@@ -88,11 +91,13 @@ export default {
           console.log(transaction);
         } catch (err) {
           console.log("ID未查询到结果");
+          this.msg = "尚未查询到相关交易记录"
           console.log(err);
         }
       } else {
         console.log("地址或交易ID输入格式有误", "----------------");
         this.msg = "地址或交易ID输入格式有误！";
+        this.shouldShowAddressTrade = "";
         //地址或交易TX有误
       }
     },

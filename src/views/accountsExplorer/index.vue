@@ -4,11 +4,12 @@
     <div class="balances">
       <!-- <h2>{{history[0]}}</h2> -->
       <div class="text2">balance</div>
-          <div class="infosBox" v-for=" (item,index) in balances" :key="index">
+
+      <Empty v-if="balances.length <= 0"></Empty>
+      <div v-else class="infosBox" v-for=" (item,index) in balances"  :key="index">
         <div class="infostext">
             <div class="l2">
           <div class="yuan" :class="index %2 == 0?'lv':'lan'"></div>
-          <!-- {{item.}} -->
           <div class="coin">{{item['currency'] ? changeXRP(item['currency']):"-"}}</div>
           <div class="num">{{item['value'] ? item['value']:"-"}}</div>
         </div>
@@ -37,7 +38,8 @@
     </div> 
     <div class="history">
       <div class="text2" @click="show2">History</div>
-      <div class="hisbox" v-for="(item,index) in history" :key='index'>
+      <Empty v-if="history.length <= 0"></Empty>
+      <div class="hisbox" v-else v-for="(item,index) in history" :key='index'>
         <div class="his_l">
           <img src="../../assets/images/next_step@2x.png" alt="" srcset="">
           <div class="text">
@@ -59,7 +61,7 @@ export default {
   data() {
     return {
       theindex: 9999,
-      zhuCoin:"RCP"
+      zhuCoin: "RCP"
     };
   },
   props: {
@@ -73,11 +75,11 @@ export default {
   },
   mouned() {},
   methods: {
-    changeXRP(coin){
-      if(coin == 'XRP' || coin == 'xrp'){
-        var coin =  'RCP'
+    changeXRP(coin) {
+      if (coin == "XRP" || coin == "xrp") {
+        var coin = "RCP";
       }
-      return coin 
+      return coin;
     },
     show2() {
       console.log(this.balances);
@@ -85,7 +87,8 @@ export default {
     },
     changedate(index) {
       var date = new Date(index);
-      var c =date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      var c =
+        date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
       return c;
     }
   }
@@ -176,6 +179,7 @@ export default {
     }
   }
   .history {
+    padding-bottom: 20px;
     height: 100%;
     width: 50%;
     .text2 {
@@ -223,6 +227,7 @@ export default {
   }
   .accountsExplorer {
     margin: 0 10px;
+    min-height: 50vh !important;
   }
   .hisbox {
     border-bottom: 1px solid #323645;
