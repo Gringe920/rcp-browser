@@ -2,13 +2,15 @@
 <!-- 帐户资源信息 -->
   <div class="accountsExplorer">
     <div class="balances">
+      <!-- <h2>{{history[0]}}</h2> -->
       <div class="text2">balance</div>
-          <div class="infosBox" v-for=" (item,index) in 1" :key="item">
+          <div class="infosBox" v-for=" (item,index) in balances" :key="index">
         <div class="infostext">
             <div class="l2">
           <div class="yuan" :class="index %2 == 0?'lv':'lan'"></div>
-          <div class="coin">RCP</div>
-          <div class="num">7,578.66676708345965</div>
+          <!-- {{item.}} -->
+          <div class="coin">{{item['currency'] ? changeXRP(item['currency']):"-"}}</div>
+          <div class="num">{{item['value'] ? item['value']:"-"}}</div>
         </div>
         <div class="r2">
             <img  v-if="theindex != index"   @click="theindex = index" src="../../assets/images/triangle_gray@2x.png" alt="" srcset="" >
@@ -17,33 +19,35 @@
         </div>
         <div class="infodetails" v-if="theindex == index">
           <div class="text">
-            <div class="l">Available</div>
-            <div class="r">40</div>
+            <div class="l">币种</div>
+            <div class="r">{{item['currency'] ? changeXRP(item['currency']):"-"}}</div>
           </div>
              <div class="text">
-            <div class="l">In Escrow</div>
-            <div class="r">0.02</div>
+            <div class="l">余额</div>
+            <div class="r">{{item['value'] ? item['value']:"-"}}</div>
           </div>
-             <div class="text">
+             <div class="text" v-if="item['counterparty']">
             <div class="l">adress:</div>
           </div>
-             <div class="text text3">
-            <div class="l">rw2ciyaNshpHe7bCHo4bRWq6pqqynnWKQg</div>
+             <div class="text text3" v-if="item['counterparty']">
+            <div class="l">{{item['counterparty'] ? item['counterparty']:"-"}}</div>
             </div>
         </div>
       </div>
     </div> 
     <div class="history">
-      <div class="text2">History</div>
-      <div class="hisbox" v-for="(item,index) in 1" :key='index'>
+      <div class="text2" @click="show2">History</div>
+      <div class="hisbox" v-for="(item,index) in history" :key='index'>
         <div class="his_l">
           <img src="../../assets/images/next_step@2x.png" alt="" srcset="">
           <div class="text">
-            <span>34.52090</span>&nbsp;RCP&nbsp;  a few seconds ago
+            <span>{{item['outcome']['deliveredAmount']['value']}}</span>
+            &nbsp;{{changeXRP(item['outcome']['deliveredAmount']['currency'])}}&nbsp;
+            {{changedate(item['outcome']['timestamp'])}}
           </div>
         </div>
         <div class="his_r">
-          rU2mEJSLqBRkYLVTv55rFkLTnT6mA
+          {{item['address']?item['address']:'-'}}
         </div>
       </div>
     </div>
@@ -54,13 +58,40 @@ export default {
   name: "accountsExplorer",
   data() {
     return {
-      theindex: 9999
+      theindex: 9999,
+      zhuCoin:"RCP"
     };
+  },
+  props: {
+    balances: {
+      type: Array
+      // default: ['1','1']
+    },
+    history: {
+      type: Array
+    }
+  },
+  mouned() {},
+  methods: {
+    changeXRP(coin){
+      if(coin == 'XRP' || coin == 'xrp'){
+        var coin =  'RCP'
+      }
+      return coin 
+    },
+    show2() {
+      console.log(this.balances);
+      console.log(this.history);
+    },
+    changedate(index) {
+      var date = new Date(index);
+      var c =date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      return c;
+    }
   }
 };
 </script>
 <style lang="scss" scoped>
-
 .accountsExplorer {
   min-height: 60vh;
   background: #151d36;
@@ -169,7 +200,7 @@ export default {
         img {
           width: 14px;
           height: 14px;
-          margin-right: 20px;
+          margin-right: 0px;
         }
         .text {
           color: #8a8fa0;
@@ -185,20 +216,19 @@ export default {
   }
 }
 @media screen and (max-width: 700px) {
-  .balances,.history {
+  .balances,
+  .history {
     width: 100% !important;
     border: none !important;
- 
   }
-  .accountsExplorer{
-   margin: 0 10px;
+  .accountsExplorer {
+    margin: 0 10px;
   }
-  .hisbox{
-      border-bottom: 1px solid #323645;
+  .hisbox {
+    border-bottom: 1px solid #323645;
   }
-   .infodetails{
+  .infodetails {
     padding: 10px !important;
- }
+  }
 }
-
 </style>
