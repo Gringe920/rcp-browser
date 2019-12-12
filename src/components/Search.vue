@@ -1,17 +1,30 @@
 <template>
   <div class="searchbox">
-    <input type="text" placeholder="请输入搜索内容" v-model="serachtext" />
-    <div class="go">go</div>
+    <input type="text" placeholder="请输入搜索内容" v-model="serachtext" @input="handleInput"/>
+    <div class="go" @click="gotoSearch">go</div>
   </div>
 </template>
 
 <script>
 export default {
+  props: ["searchContent"],
+  model: {
+      prop: 'searchContent',
+      event: 'change'
+  },
   data() {
     return {
-      serachtext: "rAPERVgXZavGgiGv6xBgtiZurirW2yAmY"
-    };
+      serachtext: this.searchContent
+    }
   },
+  methods: {
+    handleInput(val){
+      this.$emit('change', val)
+    },
+    gotoSearch(){
+      this.$emit('search', this.serachtext)
+    }
+  }
 };
 </script>
 

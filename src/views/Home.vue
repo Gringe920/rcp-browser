@@ -2,25 +2,23 @@
   <div class="homeall">
     <Header></Header>
     <div class="homeContent">
-      <Search />
+      <Search v-model="searchContent" @search="handleSearch"/>
       <!-- 搜索框下面内容 -->
-      <div class="homecInfos">
+      <div class="homecInfos" v-if="shouldShowAddressTrade == ''">
         <div class="title">XRP Ledger Stats</div>
         <div class="homecInfosbox">
           <div class="homecInfosbox-text">
             <div class="text_l">Total XRP</div>
-            <div class="text_r">99,991,234,998.56</div>
+            <div class="text_r">{{fee}}</div>
           </div>
             <div class="homecInfosbox-text">
             <div class="text_l">Total XRP</div>
-            <div class="text_r">99,991,234,998.56</div>
+            <div class="text_r">{{ledgerVersion}}</div>
           </div>
-
         </div>
-
       </div>
-      <accountsExplorer />
-      <trade v-if="false" />
+      <accountsExplorer v-if="shouldShowAddressTrade == 'address'" :balances="balances" :history="transactions"/>
+      <trade v-if="shouldShowAddressTrade == 'trade'" />
     </div>
     <Footer></Footer>
   </div>
@@ -29,13 +27,65 @@
 <script>
 import accountsExplorer from "./accountsExplorer";
 import trade from "./trade";
+import API from '../plugins/ripple.request'
 export default {
   data() {
-    return {};
+    return {
+      searchContent: '',
+      shouldShowAddressTrade: '',
+      fee: '',
+      ledgerVersion: '',
+      balances: '',
+      transactions: ''
+    };
+  },
+  created(){
+    this.initData()
   },
   components: {
-    accountsExplorer,
-    trade
+    accountsExplorer,trade
+  },
+  methods: {
+    //getFee  getLedgerVersion 内容填充
+    async initData(){
+      try{
+        await API.connect();
+        this.fee = await API.getFee()
+        this.ledgerVersion = await API.getLedgerVersion()
+      }catch (error) {
+        // 如果
+        console.log(error)
+      }
+    },
+    async handleSearch(ctx){
+      //验证输入内容是地址或者ID
+      if(API.isValidAddress(ctx)){
+        //地址:rGSZEScvDJ6sXwyyq31iVAzmjSncV29TLR
+        this.shouldShowAddressTrade = 'address'
+        try{
+          await API.connect();
+          this.balances = await API.getBalances(ctx);
+          this.transactions =  await API.getTransactions(ctx);
+        }catch(err){
+          console.log(err)
+        }
+      }else if(/^[A-Z\d]+$/.test(ctx)){ //大写字母跟数字
+        //交易ID:99404A34E8170319521223A6C604AF48B9F1E3000C377E6141F9A1BF60B0B865
+        this.shouldShowAddressTrade = 'trade'
+        try{
+          await API.connect();
+          const transaction = await API.getTransaction(ctx)
+          console.log(transaction)
+        }catch(err){
+          console.log(err)
+        }
+      }else{
+        //地址或交易TX有误
+      }
+    },
+    getBalancesData(){
+      
+    }
   }
 };
 </script>
