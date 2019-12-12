@@ -2,49 +2,54 @@
 <!-- 帐户资源信息 -->
   <div class="accountsExplorer">
     <div class="balances">
+      <!-- <h2>{{history[0]}}</h2> -->
       <div class="text2">balance</div>
-          <div class="infosBox" v-for=" (item,index) in 12" :key="item">
+
+      <Empty v-if="balances.length <= 0"></Empty>
+      <div v-else class="infosBox" v-for=" (item,index) in balances"  :key="index">
         <div class="infostext">
             <div class="l2">
           <div class="yuan" :class="index %2 == 0?'lv':'lan'"></div>
-          <div class="coin">RCP</div>
-          <div class="num">7,578.66676708345965</div>
+          <div class="coin">{{item['currency'] ? changeXRP(item['currency']):"-"}}</div>
+          <div class="num">{{item['value'] ? item['value']:"-"}}</div>
         </div>
         <div class="r2">
-            <img  v-if="!show "   @click="show = !show ,theindex = item" src="../../assets/images/triangle_gray@2x.png" alt="" srcset="" >
-            <img  v-else @click="show = !show,theindex = item" src="../../assets/images/triangle_gray_upper@2x.png" alt="" srcset="">
+            <img  v-if="theindex != index"   @click="theindex = index" src="../../assets/images/triangle_gray@2x.png" alt="" srcset="" >
+            <img  v-else  @click="theindex = 1000" src="../../assets/images/triangle_gray_upper@2x.png" alt="" srcset="">
         </div>
         </div>
-      
-        <div class="infodetails" v-if="show &&  theindex == item">
+        <div class="infodetails" v-if="theindex == index">
           <div class="text">
-            <div class="l">Available</div>
-            <div class="r">40</div>
+            <div class="l">币种</div>
+            <div class="r">{{item['currency'] ? changeXRP(item['currency']):"-"}}</div>
           </div>
              <div class="text">
-            <div class="l">In Escrow</div>
-            <div class="r">0.02</div>
+            <div class="l">余额</div>
+            <div class="r">{{item['value'] ? item['value']:"-"}}</div>
           </div>
-             <div class="text">
+             <div class="text" v-if="item['counterparty']">
             <div class="l">adress:</div>
           </div>
-             <div class="text">
-            <div class="l">rw2ciyaNshpHe7bCHo4bRWq6pqqynnWKQg</div>
+             <div class="text text3" v-if="item['counterparty']">
+            <div class="l">{{item['counterparty'] ? item['counterparty']:"-"}}</div>
             </div>
         </div>
       </div>
     </div> 
     <div class="history">
-      <div class="text2">History</div>
-      <div class="hisbox" v-for="(item,index) in 12" :key='index'>
+      <div class="text2" @click="show2">History</div>
+      <Empty v-if="history.length <= 0"></Empty>
+      <div class="hisbox" v-else v-for="(item,index) in history" :key='index'>
         <div class="his_l">
           <img src="../../assets/images/next_step@2x.png" alt="" srcset="">
           <div class="text">
-            <span>34.52090</span>&nbsp;RCP&nbsp;  a few seconds ago
+            <span>{{item['outcome']['deliveredAmount']['value']}}</span>
+            &nbsp;{{changeXRP(item['outcome']['deliveredAmount']['currency'])}}&nbsp;
+            {{changedate(item['outcome']['timestamp'])}}
           </div>
         </div>
         <div class="his_r">
-          rU2mEJSLqBRkYLVTv55rFkLTnT6mA
+          {{item['address']?item['address']:'-'}}
         </div>
       </div>
     </div>
@@ -53,27 +58,51 @@
 <script>
 export default {
   name: "accountsExplorer",
-  data(){
-    return{
-      show:false,
-      theindex:0,
+  data() {
+    return {
+      theindex: 9999,
+      zhuCoin: "RCP"
+    };
+  },
+  props: {
+    balances: {
+      type: Array
+      // default: ['1','1']
+    },
+    history: {
+      type: Array
+    }
+  },
+  mouned() {},
+  methods: {
+    changeXRP(coin) {
+      if (coin == "XRP" || coin == "xrp") {
+        var coin = "RCP";
+      }
+      return coin;
+    },
+    show2() {
+      console.log(this.balances);
+      console.log(this.history);
+    },
+    changedate(index) {
+      var date = new Date(index);
+      var c =
+        date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      return c;
     }
   }
 };
 </script>
 <style lang="scss" scoped>
-
 .accountsExplorer {
   min-height: 60vh;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: #151d36;
   display: flex;
   flex-wrap: wrap;
-
+  margin-top: 30px;
   .balances {
     width: 50%;
-    height: 100%;
-    min-width: 375px;
     padding-bottom: 20px;
     border-right: 1px solid #323645;
     .text2 {
@@ -84,7 +113,6 @@ export default {
       border-bottom: 1px solid #323645;
     }
     .infosBox {
-        
       padding: 10px 20px;
 
       .infostext {
@@ -103,11 +131,11 @@ export default {
             border-radius: 100%;
             margin-right: 20px;
           }
-          .lv{
-                   background: #00c28f;
+          .lv {
+            background: #00c28f;
           }
-          .lan{
-            background: #00CCFF;
+          .lan {
+            background: #00ccff;
           }
           .coin {
             color: rgba(138, 143, 160, 1);
@@ -125,66 +153,92 @@ export default {
           }
         }
       }
-      .infodetails{
-         padding: 20px 20px 20px 34px;
-        .text{
+      .infodetails {
+        background: rgba(216, 216, 216, 0.05);
+        padding: 20px 20px 20px 34px;
+
+        .text {
           display: flex;
           justify-content: space-between;
           align-items: center;
           font-size: 12px;
           padding: 5px 0;
-          .l{
-            color: #8A8FA0;
+          .l {
+            color: #8a8fa0;
           }
-          .r{
+          .r {
             color: #ffffff;
           }
         }
-
+        .text3 {
+          .l {
+            color: #00ccff !important;
+          }
+        }
       }
     }
   }
   .history {
+    padding-bottom: 20px;
     height: 100%;
     width: 50%;
-     min-width: 375px;
-      .text2 {
+    .text2 {
       padding: 12px 20px;
       font-size: 14px;
       font-weight: 500;
       color: rgba(255, 255, 255, 1);
       border-bottom: 1px solid #323645;
     }
-    .hisbox{
+    .hisbox {
       display: flex;
-      padding:  10px 20px;
+      padding: 10px 20px;
       justify-content: space-between;
       align-items: center;
       font-size: 14px;
       flex-wrap: wrap;
-      .his_l{
+      .his_l {
         height: 30px;
         display: flex;
         align-items: center;
         padding: 10px 0;
-        img{
+        img {
           width: 14px;
           height: 14px;
-          margin-right: 20px;
+          margin-right: 0px;
         }
-        .text{
-          color:#8A8FA0;
-          span{
-            color:#ffffff;
+        .text {
+          color: #8a8fa0;
+          span {
+            color: #ffffff;
           }
         }
       }
-      .his_r{
-        color: #00C28F;
+      .his_r {
+        width: 100%;
+        overflow-x: scroll;
+        color: #00c28f;
       }
-
+      .his_r::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 }
-
+@media screen and (max-width: 700px) {
+  .balances,
+  .history {
+    width: 100% !important;
+    border: none !important;
+  }
+  .accountsExplorer {
+    margin: 0 10px;
+    min-height: 50vh !important;
+  }
+  .hisbox {
+    border-bottom: 1px solid #323645;
+  }
+  .infodetails {
+    padding: 10px !important;
+  }
+}
 </style>

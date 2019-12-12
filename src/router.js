@@ -15,16 +15,17 @@ export default new Router({
     {
         path: '/home',
         name: 'home',
-        component: Home
-    },{
-        path: '/trade',
-        name: 'trade',
-        component: Trade
+        component: Home,
     },
     {
         path: '/accountsExplorer',
         name: 'accountsExplorer',
-        component: accountsExplorer
+        component: accountsExplorer,
+    },
+    {
+        path: '/trade',
+        name: 'trade',
+        component: Trade
     }
 ]
 })

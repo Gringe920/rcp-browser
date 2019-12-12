@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "core-js": "^3.4.3",
+    "ripple-lib": "^1.4.2",
     "sass-loader": "^8.0.0",
     "vue": "^2.6.10",
+    "vue-i18n": "^8.15.1",
     "vue-router": "^3.1.3"
   },
   "devDependencies": {
@@ -29,10 +31,12 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
+      "plugin:vue/essential"
     ],
-    "rules": {},
+    "rules": {
+      "no-tabs": "off",
+      "no-console": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
