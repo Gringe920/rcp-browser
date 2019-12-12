@@ -21,8 +21,10 @@
       </div>
       <accountsExplorer />
       <trade v-if="false" />
+      <Msg />
     </div>
     <Footer></Footer>
+    <Msg />
   </div>
 </template>
 

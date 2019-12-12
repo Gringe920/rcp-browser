@@ -9,7 +9,7 @@
         <img  v-if='!show' src="../assets/images/triangle_gray@2x.png" alt="" srcset="">
           <img  v-else  src="../assets/images/triangle_gray_upper@2x.png" alt="" srcset="">
         <div class="change" v-if="show">
-          <div :class="item == languange?'active':''" v-for="item in languangetype" :key='item'>{{item}}</div>
+          <div  v-for="item in languangetype" :key='item'>{{item}}</div>
         </div>
       </div>
     </div>
@@ -58,17 +58,25 @@ export default {
       position: relative;
 
       .change{
+        width: auto;
         position: absolute;
         top:40px;
         padding: 10px 0;
         background: #ffffff;
         right: -10px;
+        min-width: 110px;
         div{
-          width:112px;
           padding: 10px;
           height:32px;
+          display: flex;
+          align-items: center;
+       
           color:#8A8FA0;
           font-size: 12px;
+        }
+        div:hover{
+            color: #00C28F;
+          background:rgba(0,194,143,0.2);
         }
         .active{
           color: #00C28F;

@@ -3,7 +3,7 @@
   <div class="accountsExplorer">
     <div class="balances">
       <div class="text2">balance</div>
-          <div class="infosBox" v-for=" (item,index) in 12" :key="item">
+          <div class="infosBox" v-for=" (item,index) in 1" :key="item">
         <div class="infostext">
             <div class="l2">
           <div class="yuan" :class="index %2 == 0?'lv':'lan'"></div>
@@ -35,7 +35,7 @@
     </div> 
     <div class="history">
       <div class="text2">History</div>
-      <div class="hisbox" v-for="(item,index) in 12" :key='index'>
+      <div class="hisbox" v-for="(item,index) in 1" :key='index'>
         <div class="his_l">
           <img src="../../assets/images/next_step@2x.png" alt="" srcset="">
           <div class="text">
@@ -66,7 +66,7 @@ export default {
   background: #151d36;
   display: flex;
   flex-wrap: wrap;
-
+  margin-top: 30px;
   .balances {
     width: 50%;
     padding-bottom: 20px;
