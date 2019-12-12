@@ -47,6 +47,7 @@
         </div>
       </div>
       <div class="description-raw">
+        <!-- title-tab -->
         <div class="title">
           <span class="d-title" :class="{'active': activeIndex == 0}" @click="activeIndex = 0">
             Description
@@ -55,7 +56,8 @@
             Raw
           </span>
         </div>
-        <div class="description-content">
+        <!-- description  -->
+        <div class="description-content" v-if="activeIndex == 0">
           <div class="status-box box">
             <div class="des-title">STATUS：</div>
             <div class="des-content">This transaction was successful, and validated in ledger <span class="green">51474924</span>  on <span class="blue">November 18, 2019 7:47 AM UTC.</span></div>
@@ -91,13 +93,27 @@
           </div>
           <div class="modified-box box"></div>
         </div>
-        <div class="raw-content"></div>
+        <!-- raw  -->
+        <div class="raw-content" v-if="activeIndex == 1">
+          <div class="object-raw-title">Object</div>
+          <div class="raw-item">
+            <span>hash：</span>
+            <span class="green">"3068712E52970BC4221DDBD06152D174C8427D0612DEC288F7954DAAD31D5EE6"</span>
+          </div>
+          <div class="raw-item indent">
+            <span>tx：</span>
+            <span class="green">Object</span>
+          </div>
+        </div>
       </div>
   </section>
 </template>
 
 <script>
 export default {
+  created(){
+    
+  },
   data() {
     return{
       activeIndex: 0
@@ -187,8 +203,15 @@ export default {
   }
   .description-raw{
     width: 70%;
+    color: #8A8FA0;
+    
+    span.green{
+      color: #00C28F;
+    }
+    span.blue{
+      color: #00CCFF;
+    }
     .description-content{
-      
       padding: 20px;
       .box{
         margin-bottom: 20px;
@@ -199,17 +222,21 @@ export default {
         }
         .des-content{
           font-size: 12px;
-          color: #8A8FA0;
-          
-          span.green{
-            color: #00C28F;
-          }
-          span.blue{
-            color: #00CCFF;
-          }
-          i{
-
-          }
+        }
+      }
+    }
+    .raw-content{
+      padding:20px;
+      .object-raw-title{
+        font-size: 14px;
+        color: #fff;
+        margin-bottom: 7px;
+      }
+      .raw-item{
+        font-size: 12px;
+        margin-bottom: 7px;
+        &.indent{
+          text-indent:2em;
         }
       }
     }
