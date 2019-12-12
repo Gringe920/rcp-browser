@@ -63,7 +63,6 @@ export default {
 
 .accountsExplorer {
   min-height: 60vh;
-  width: 100%;
   background: #151d36;
   display: flex;
   flex-wrap: wrap;
@@ -189,6 +188,10 @@ export default {
   .balances,.history {
     width: 100% !important;
     border: none !important;
+ 
+  }
+  .accountsExplorer{
+   margin: 0 10px;
   }
   .hisbox{
       border-bottom: 1px solid #323645;
