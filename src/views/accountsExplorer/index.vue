@@ -214,7 +214,12 @@ export default {
         }
       }
       .his_r {
+        width: 100%;
+        overflow-x: scroll;
         color: #00c28f;
+      }
+      .his_r::-webkit-scrollbar {
+        display: none;
       }
     }
   }
