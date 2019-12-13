@@ -73,24 +73,24 @@
           </div>
           <div class="memos-box box">
             <div class="des-title">MEMOS：</div>
-            <div class="des-content">The transaction has no memos.</div>
+            <div class="des-content">The transaction has {{transaction.specification.memos.length > 0 && transaction.specification.memos[0].data}} memos.</div>
           </div>
           <div class="cost-box box">
             <div class="des-title">TRANSACTION COST：</div>
-            <div class="des-content">Sending this transaction consumed 0.007099 XRP.</div>
+            <div class="des-content">Sending this transaction consumed {{transaction.outcome.deliveredAmount.value}} {{transaction.outcome.deliveredAmount.currency}}.</div>
           </div>
           <div class="flags-box box">
             <div class="des-title">FLAGS：</div>
             <div class="des-content">The transaction specified the following flags:</div>
-            <div class="des-content">● tfFullyCanonicalSig</div>
-            <div class="des-content">● tfPartialPayment</div>
+            <div class="des-content"><span class="green">● tfFullyCanonicalSig</span></div>
+            <div class="des-content"><span class="green">● tfPartialPayment</span></div>
           </div>
           <div class="affected-box box">
             <div class="des-title">AFFECTED LEDGER NODES：</div>
-            <div class="des-content">● It modified the AccountRoot  node of rkrELMpeE7Hqvc5T5Vv7cP3ENruwfpnqG</div>
-            <div class="des-content">● Balance reduced by 0.007099 from 12.644348 to 12.637249 XRP</div>
-            <div class="des-content">● It modified a BTC RippleState  node between rfGX54DKEA13fq2oxLz1dM1uAVvfuE7K9u  and rkrELMpeE7Hqvc5T5Vv7cP3ENruwfpnqG</div>
-            <div class="des-content">● Balance changed by 0.146284 from 0.146282 to 0.292566 BTC</div>
+            <div class="des-content">● It modified the <span class="red">AccountRoot</span>  node of {{transaction.address}}</div>
+            <div class="des-content"><span class="green">● Balance reduced by 0.007099 from 12.644348 to 12.637249 {{transaction.outcome.deliveredAmount.currency}}</span></div>
+            <div class="des-content">● It modified a {{transaction.outcome.deliveredAmount.currency}} <span class="red">RippleState</span>  node between <span class="white">{{transaction.specification.destination.address}}</span>  and <span class="white">{{transaction.address}}</span></div>
+            <div class="des-content"><span class="green">● Balance changed by 0.146284 from 0.146282 to 0.292566 {{transaction.outcome.deliveredAmount.currency}}</span></div>
           </div>
           <div class="modified-box box"></div>
         </div>
@@ -99,11 +99,107 @@
           <div class="object-raw-title">Object</div>
           <div class="raw-item">
             <span>hash：</span>
-            <span class="green">"3068712E52970BC4221DDBD06152D174C8427D0612DEC288F7954DAAD31D5EE6"</span>
+            <span class="green">"{{transaction.id}}"</span>
+          </div>
+          <div class="raw-item">
+            <span>ledger_index：</span>
+            <span class="red">{{transaction.outcome.ledgerVersion}}</span>
+          </div>
+          <div class="raw-item">
+            <span>date：</span>
+            <span class="red">{{new Date(transaction.outcome.timestamp).toGMTString()}}</span>
           </div>
           <div class="raw-item indent">
             <span>tx：</span>
-            <span class="green">Object</span>
+            <span>Object</span>
+          </div>
+          <div class="raw-item">
+            <span>TransactionType：</span>
+            <span class="green">{{transaction.type}}</span>
+          </div>
+          <div class="raw-item">
+            <span>Flags：</span>
+            <span class="red">{{transaction.type}}</span>
+          </div>
+          <div class="raw-item">
+            <span>Sequence：</span>
+            <span class="red">{{transaction.sequence}}</span>
+          </div>
+          <div class="raw-item">
+            <span>LastLedgerSequence：</span>
+            <span class="red">{{transaction.outcome.indexInLedger}}</span>
+          </div>
+          <div class="raw-item indent">
+            <span>Amount：</span>
+            <span class="white">Object</span>
+          </div>
+          <div class="raw-item">
+            <span>value：</span>
+            <span class="green">{{transaction.outcome.deliveredAmount.value}}</span>
+          </div>
+          <div class="raw-item">
+            <span>currency：</span>
+            <span class="green">{{transaction.outcome.deliveredAmount.currency}}</span>
+          </div>
+          <div class="raw-item">
+            <span>issuer：</span>
+            <span class="green">{{transaction.address}}</span>
+          </div>
+          <div class="raw-item">
+            <span>SigningPubkey：</span>
+            <span class="green">{{transaction.id}}</span>
+          </div>
+          <div class="raw-item">
+            <span>TxnSignature：</span>
+            <span class="green">{{transaction.id}}</span>
+          </div>
+          <div class="raw-item">
+            <span>Account：</span>
+            <span class="green">{{transaction.address}}</span>
+          </div>
+          <div class="raw-item">
+            <span>Destination：</span>
+            <span class="green">{{transaction.specification.destination.address}}</span>
+          </div>
+          <div class="raw-item indent">
+            <span>meta：</span>
+            <span class="white">Object</span>
+          </div>
+          <div class="raw-item">
+            <span>TransactionIndex：</span>
+            <span class="red">37</span>
+          </div>
+          <div class="raw-item indent">
+            <span>AffectedNotes：</span>
+            <span class="white">Array[2]</span>
+          </div>
+          <div class="raw-item indent">
+            <span>0：</span>
+            <span class="white">Object</span>
+          </div>
+          <div class="raw-item indent">
+            <span>1：</span>
+            <span class="white">Object</span>
+          </div>
+          <div class="raw-item">
+            <span>TransactionResult：</span>
+            <span class="green">{{transaction.outcome.result}}</span>
+          </div>
+          <div class="raw-item indent">
+            <span>delivered_amount：</span>
+            <span class="white">Object</span>
+          </div>
+          <div class="raw-item">
+            <span>value：</span>
+            <span class="white">{{transaction.outcome.deliveredAmount.value}}</span>
+          </div>
+          <div class="raw-item">
+            <span>currency：</span>
+            <span class="white">{{transaction.outcome.deliveredAmount.currency}}</span>
+          </div>
+          <div class="raw-item">
+            <span>issuer：</span>
+            <span class="white">{{transaction.address}}</span>
           </div>
         </div>
       </div>
@@ -206,7 +302,9 @@ export default {
   .description-raw{
     width: 85%;
     color: #8A8FA0;
-    
+    span.red{
+      color: #d50707;
+    }
     span.green{
       color: #00C28F;
     }
@@ -227,6 +325,7 @@ export default {
         }
         .des-content{
           font-size: 12px;
+          margin-bottom: 5px;
         }
       }
     }
