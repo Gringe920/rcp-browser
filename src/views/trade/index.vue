@@ -302,6 +302,7 @@ export default {
   .description-raw{
     width: 85%;
     color: #8A8FA0;
+    overflow: hidden;
     span.red{
       color: #d50707;
     }
