@@ -72,12 +72,11 @@ export default {
     };
   },
   created() {
-    this.initData();
     if(this.searchContent){
-      console.log('show')
       this.handleSearch(this.searchContent)
+    }else{
+      this.initData();
     }
-  console.log('noshow')
   },
   components: {
     accountsExplorer,
@@ -97,14 +96,13 @@ export default {
       }
     },
     async handleSearch(ctx) {
-      console.log(ctx,'------------ctx')
       this.msg = "";
       //验证输入内容是地址或者ID
       if (API.isValidAddress(ctx)) {
         //地址:rGSZEScvDJ6sXwyyq31iVAzmjSncV29TLR 
         // rGii6WxApQAjjndZZQbSzPpY7pmikfnv2Y
-        //  rERuBTMQ9jSKAhbNNkKv95MRCr9GGRmqFicd 
-              this.$router.push({ path: 'home',query:{id:ctx}});
+        //  rERuBTMQ9jSKAhbNNkKv95MRCr9GGRmqFi
+        this.$router.push({ path: 'home',query:{id:ctx}});
         try {
           this.shouldShowAddressTrade = "address";
           await API.connect();
@@ -118,9 +116,10 @@ export default {
       } else if (/^[A-F0-9]{64}$/.test(ctx)) {
         //大写字母跟数字
         //交易ID:C93F0E3A1C356BC5326A14726D415D6DDC5F657E51D32F3001EF8BABC10D90B0
-        console.log('isaddress')
+        //DE026CC194F4CD2F499952C2D732F0CFF33D0FDF931637A79465CA4188B7149A
         this.$router.push({ path: 'home',query:{id:ctx}});
         try {
+          await API.disconnect();
           await API.connect();
           this.transaction = "";
           this.transaction = await API.getTransaction(ctx);

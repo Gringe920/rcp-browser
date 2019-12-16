@@ -57,7 +57,7 @@
           </span>
         </div>
         <!-- description  -->
-        <div class="description-content" v-if="activeIndex == 0">
+        <div class="description-content" v-if="activeIndex == 0 && transaction">
           <div class="status-box box">
             <div class="des-title">   {{$t('a25' )}}：</div>
             <div class="des-content">   {{$t('a26')}} <span class="green">{{transaction.outcome.ledgerVersion}}</span>     {{$t('a27')}} <span class="blue">{{new Date(transaction.outcome.timestamp).toGMTString()}}.</span></div>
