@@ -3,7 +3,10 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 const Trade = () => import(/* webpackChunkName: "Trade" */ './views/trade/index.vue');
 const accountsExplorer = () => import(/* webpackChunkName: "Trade" */ './views/accountsExplorer/index.vue');
-
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
 Vue.use(Router)
 export default new Router({
     mode: (/file/gi.test(location.href)) ? 'hash' : process.env.NODE_ENV === 'production' ? 'hash' : 'history' ,
