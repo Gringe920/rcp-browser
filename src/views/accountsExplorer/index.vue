@@ -11,10 +11,10 @@
             <div class="l2">
           <div class="yuan" :class="index %2 == 0?'lv':'lan'"></div>
           <div class="coin">{{item['currency'] ? changeXRP(item['currency']):"-"}}</div>
-          <div class="num">{{item['value'] ? item['value']:"-"}}</div>
+          <div class="num">{{item['value'] ? item['value']:"-"}}===={{index}}-{{theindex}}</div>
         </div>
         <div class="r2">
-            <img  v-if="theindex != index"   @click="theindex = index" src="../../assets/images/triangle_gray@2x.png" alt="" srcset="" >
+            <img  v-if="theindex != index"   @click="changindex(index)" src="../../assets/images/triangle_gray@2x.png" alt="" srcset="" >
             <img  v-else  @click="theindex = 1000" src="../../assets/images/triangle_gray_upper@2x.png" alt="" srcset="">
         </div>
         </div>
@@ -43,9 +43,9 @@
         <div class="his_l">
           <img src="../../assets/images/next_step@2x.png" alt="" srcset="">
           <div class="text">
-            <span>{{item['outcome']['deliveredAmount']['value']}}</span>
-            &nbsp;{{changeXRP(item['outcome']['deliveredAmount']['currency'])}}&nbsp;
-            {{changedate(item['outcome']['timestamp'])}}
+            <span>{{item['outcome']['deliveredAmount']['value']?'1':"-"}}</span>
+            &nbsp;{{changeXRP(item['outcome']['deliveredAmount']['currency'])?changeXRP(item['outcome']['deliveredAmount']['currency']):"-"}}&nbsp;
+             {{changedate(item['outcome']['timestamp'])?changedate(item['outcome']['timestamp']):'-'}} 
           </div>
         </div>
         <div class="his_r">
@@ -77,9 +77,15 @@ export default {
   methods: {
     changeXRP(coin) {
       if (coin == "XRP" || coin == "xrp") {
-        var coin = "RCP";
+        var coin = this.zhuCoin ;
       }
       return coin;
+    },
+    changindex(index){
+      console.log(index,'====================index')
+      this.theindex = index;
+      
+      console.log(index,this.theindex,'====================index')
     },
     show2() {
       console.log(this.balances);

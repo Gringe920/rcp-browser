@@ -4,8 +4,6 @@
     <div class="homeContent">
       <Search v-model="searchContent" @search="handleSearch" :msg='msg'/>
       <!-- 搜索框下面内容 -->
-      <!-- <h1>{{balances}}</h1>
-      <h1>{{transactions[0]}}</h1> -->
       <div class="homecInfos" v-if="shouldShowAddressTrade == ''">
         <div class="title">{{$t('a1')}}</div>
         <div class="homecInfosbox">
@@ -64,12 +62,16 @@ export default {
     async handleSearch(ctx) {
       this.msg = ''
       //验证输入内容是地址或者ID
+      console.log(API.isValidAddress(ctx),)
       if (API.isValidAddress(ctx)) {
         console.log("isadress", "----------------");
         //地址:rGSZEScvDJ6sXwyyq31iVAzmjSncV29TLR
+        // rGii6WxApQAjjndZZQbSzPpY7pmikfnv2Y
         this.shouldShowAddressTrade = "address";
         try {
           await API.connect();
+          this.balances = [];
+          this.transactions = [];
           this.balances = await API.getBalances(ctx);
           this.transactions = await API.getTransactions(ctx);
           console.log(this.transactions)
