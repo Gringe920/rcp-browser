@@ -86,7 +86,7 @@ export default {
   width: 100%;
   position: fixed;
   top: 0;
-
+  z-index: 1;
   .headerbox {
     padding: 0 5px;
     display: flex;
