@@ -39,13 +39,12 @@
       <div class="text2">{{$t('a22')}}</div>
         <load v-if="history.length <= 0 && !show2 "></load>
       <Empty v-if="history.length <= 0 && show2 "></Empty>
-      <div class="hisbox" v-else v-for="(item,index) in history" :key='index'>
+      <div class="hisbox" @click="toID(item.id)" v-else v-for="(item,index) in history" :key='index'>
         <div class="his_l">
-          <img src="../../assets/images/next_step@2x.png" alt="" srcset="">
           <div class="text">
+             <span :class="item['type'] != 'payment'?'hon': 'lvc'">{{item['type']?item['type']:"-"}}</span>&nbsp;
             <span>{{item['outcome']['deliveredAmount']?item['outcome']['deliveredAmount']['value']:"-"}}</span>
             &nbsp;{{changeXRP(item['outcome']['deliveredAmount'])?changeXRP(item['outcome']['deliveredAmount']['currency']):"-"}}&nbsp;
-             {{changedate(item['outcome']['timestamp'])?changedate(item['outcome']['timestamp']):'-'}} 
           </div>
         </div>
         <div class="his_r">
@@ -69,7 +68,6 @@ export default {
     balances(n, o) {
       var _self = this
        _self.show = false
-      console.log('rGSZEScvDJ6sXwyyq31iVAzmjSncV29TLR',this.load)
       this.theindex = 9999;
       setTimeout(() => {
           _self.show = true;
@@ -87,7 +85,6 @@ export default {
   props: {
     balances: {
       type: Array
-      // default: ['1','1']
     },
     history: {
       type: Array
@@ -96,6 +93,9 @@ export default {
   },
   mouned() {},
   methods: {
+    toID(ctx){
+         this.$router.push({ path: 'home',query:{id:ctx}});
+    },
     changeXRP(coin) {
       if (coin == "XRP" || coin == "xrp") {
         var coin = this.$t('zhuCoin');
@@ -238,6 +238,13 @@ export default {
           margin-right: 0px;
         }
         .text {
+          .lvc{
+            // text-transform: uppercase;
+            color: #00c28f;
+          }
+          .hon{
+            color: red;
+          }
           color: #8a8fa0;
           span {
             color: #ffffff;
