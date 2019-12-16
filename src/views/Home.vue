@@ -121,6 +121,7 @@ export default {
         //大写字母跟数字
         //交易ID:C93F0E3A1C356BC5326A14726D415D6DDC5F657E51D32F3001EF8BABC10D90B0
         console.log('isaddress')
+                  this.$router.push({ path: 'home',query:{id:ctx}});
         try {
           await API.connect();
           this.transaction = "";
