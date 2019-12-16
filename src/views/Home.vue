@@ -56,10 +56,11 @@
 import accountsExplorer from "./accountsExplorer";
 import trade from "./trade";
 import API from "../plugins/ripple.request";
+import { log } from 'util';
 export default {
   data() {
     return {
-      searchContent: "",
+      searchContent: this.$route.query.id ||"",
       shouldShowAddressTrade: "",
       fee: "",
       ledgerVersion: "",
@@ -72,6 +73,11 @@ export default {
   },
   created() {
     this.initData();
+    if(this.searchContent){
+      console.log('show')
+      this.handleSearch(this.searchContent)
+    }
+  console.log('noshow')
   },
   components: {
     accountsExplorer,
@@ -91,12 +97,15 @@ export default {
       }
     },
     async handleSearch(ctx) {
+      console.log(ctx,'------------ctx')
       this.msg = "";
       //验证输入内容是地址或者ID
       if (API.isValidAddress(ctx)) {
-        //地址:rGSZEScvDJ6sXwyyq31iVAzmjSncV29TLR
+        //地址:rGSZEScvDJ6sXwyyq31iVAzmjSncV29TLR 
         // rGii6WxApQAjjndZZQbSzPpY7pmikfnv2Y
         //  rERuBTMQ9jSKAhbNNkKv95MRCr9GGRmqFi
+        console.log(this.$router)
+              this.$router.push({ path: 'home',query:{id:ctx}});
         try {
           this.shouldShowAddressTrade = "address";
           await API.connect();
@@ -111,13 +120,16 @@ export default {
       } else if (/^[A-F0-9]{64}$/.test(ctx)) {
         //大写字母跟数字
         //交易ID:C93F0E3A1C356BC5326A14726D415D6DDC5F657E51D32F3001EF8BABC10D90B0
+        console.log('isaddress')
         try {
           await API.connect();
           this.transaction = "";
           this.transaction = await API.getTransaction(ctx);
+              console.log('isaddress2')
           this.shouldShowAddressTrade = "trade";
         } catch (err) {
           console.log(err);
+           console.log('isaddress3')
           this.msg = this.$t("a14");
         }
       } else {
