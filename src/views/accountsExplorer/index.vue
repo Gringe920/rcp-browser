@@ -94,7 +94,7 @@ export default {
   mouned() {},
   methods: {
     toID(ctx){
-         this.$router.push({ path: 'home',query:{id:ctx}});
+      this.$router.push({ path: 'home',query:{id:ctx}});
     },
     changeXRP(coin) {
       if (coin == "XRP" || coin == "xrp") {

@@ -56,11 +56,11 @@
 import accountsExplorer from "./accountsExplorer";
 import trade from "./trade";
 import API from "../plugins/ripple.request";
-import { log } from 'util';
+import { log } from "util";
 export default {
   data() {
     return {
-      searchContent: this.$route.query.id ||"",
+      searchContent: this.$route.query.id || "",
       shouldShowAddressTrade: "",
       fee: "",
       ledgerVersion: "",
@@ -71,10 +71,19 @@ export default {
       getLedger: {}
     };
   },
+  watch: {
+    $route() {
+      if (this.$route.query.id) {
+        this.handleSearch(this.$route.query.id);
+        this.searchContent =this.$route.query.id
+      }
+    }
+  },
   created() {
-    this.initData();
-    if(this.searchContent){
-      this.handleSearch(this.searchContent)
+    if (this.searchContent) {
+      this.handleSearch(this.searchContent);
+    } else {
+      this.initData();
     }
   },
   components: {
@@ -97,10 +106,11 @@ export default {
       this.msg = "";
       //验证输入内容是地址或者ID
       if (API.isValidAddress(ctx)) {
-        //地址:rGSZEScvDJ6sXwyyq31iVAzmjSncV29TLR 
+        //地址:rGSZEScvDJ6sXwyyq31iVAzmjSncV29TLR
         // rGii6WxApQAjjndZZQbSzPpY7pmikfnv2Y
-        //  rERuBTMQ9jSKAhbNNkKv95MRCr9GGRmqFicd 
-        this.$router.push({ path: 'home',query:{id:ctx}});
+        //  rERuBTMQ9jSKAhbNNkKv95MRCr9GGRmqFicd
+        //  rERuBTMQ9jSKAhbNNkKv95MRCr9GGRmqFi
+        this.$router.push({ path: "home", query: { id: ctx } });
         try {
           this.shouldShowAddressTrade = "address";
           await API.connect();
@@ -110,19 +120,21 @@ export default {
           this.transactions = await API.getTransactions(ctx);
         } catch (err) {
           this.msg = this.$t("a13");
-           this.shouldShowAddressTrade = ""
+          this.shouldShowAddressTrade = "";
         }
       } else if (/^[A-F0-9]{64}$/.test(ctx)) {
         //大写字母跟数字
         //交易ID:C93F0E3A1C356BC5326A14726D415D6DDC5F657E51D32F3001EF8BABC10D90B0
-        this.$router.push({ path: 'home',query:{id:ctx}});
+        //DE026CC194F4CD2F499952C2D732F0CFF33D0FDF931637A79465CA4188B7149A
+        this.$router.push({ path: "home", query: { id: ctx } });
         try {
+          await API.disconnect();
           await API.connect();
           this.transaction = "";
           this.transaction = await API.getTransaction(ctx);
           this.shouldShowAddressTrade = "trade";
         } catch (err) {
-           this.shouldShowAddressTrade = ""
+          this.shouldShowAddressTrade = "";
           this.msg = this.$t("a14");
         }
       } else {
@@ -137,8 +149,10 @@ export default {
         date.getMonth() > 9 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1);
       var d = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
       var h = date.getHours() > 9 ? date.getDate() : "0" + date.getDate();
-      var min =date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes();
-      var sec =date.getSeconds() > 9 ? date.getSeconds() : "0" + date.getSeconds();
+      var min =
+        date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes();
+      var sec =
+        date.getSeconds() > 9 ? date.getSeconds() : "0" + date.getSeconds();
 
       var c =
         date.getFullYear() +

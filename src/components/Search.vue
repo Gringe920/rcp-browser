@@ -14,6 +14,13 @@ export default {
     prop: "searchContent",
     event: "change"
   },
+    watch: {
+    $route() {
+    if (this.$route.query.id) {
+        this.serachtext =this.$route.query.id
+      }
+    }
+  },
   data() {
     return {
       serachtext: this.searchContent
