@@ -103,8 +103,7 @@ export default {
       if (API.isValidAddress(ctx)) {
         //地址:rGSZEScvDJ6sXwyyq31iVAzmjSncV29TLR 
         // rGii6WxApQAjjndZZQbSzPpY7pmikfnv2Y
-        //  rERuBTMQ9jSKAhbNNkKv95MRCr9GGRmqFi
-        console.log(this.$router)
+        //  rERuBTMQ9jSKAhbNNkKv95MRCr9GGRmqFicd 
               this.$router.push({ path: 'home',query:{id:ctx}});
         try {
           this.shouldShowAddressTrade = "address";

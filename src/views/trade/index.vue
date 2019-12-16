@@ -109,8 +109,7 @@
             <span>{{$t('a57')}}</span>
             <span class="red">{{new Date(transaction.outcome.timestamp).toGMTString()}}</span>
           </div>
-          <div class="raw-item indent">
-            <span>{{$t('a58')}}</span>
+          <div class="raw-item indent"><span>{{$t('a58')}}</span>
             <span>{{$t('a54')}}</span>
           </div>
           <div class="raw-item">
