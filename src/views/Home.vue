@@ -67,7 +67,7 @@ export default {
       transactions: [],
       msg: "",
       transaction: "",
-      getLedger: {},
+      getLedger: {}
     };
   },
   created() {
@@ -104,10 +104,8 @@ export default {
           this.transactions = [];
           this.balances = await API.getBalances(ctx);
           this.transactions = await API.getTransactions(ctx);
-        
-       
         } catch (err) {
-          this.msg = this.$t('a13')
+          this.msg = this.$t("a13");
           console.log(err);
         }
       } else if (/^[A-F0-9]{64}$/.test(ctx)) {
@@ -120,28 +118,35 @@ export default {
           this.shouldShowAddressTrade = "trade";
         } catch (err) {
           console.log(err);
-          this.msg = this.$t('a14')
+          this.msg = this.$t("a14");
         }
       } else {
-        this.msg = this.$t('a15')
+        this.msg = this.$t("a15");
         this.shouldShowAddressTrade = "";
         //地址或交易TX有误
       }
     },
     changedate(index) {
       var date = new Date(index);
+      var m =
+        date.getMonth() > 9 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1);
+      var d = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
+      var h = date.getHours() > 9 ? date.getDate() : "0" + date.getDate();
+      var min =date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes();
+      var sec =date.getSeconds() > 9 ? date.getSeconds() : "0" + date.getSeconds();
+
       var c =
         date.getFullYear() +
         "-" +
-        (date.getMonth() + 1) +
+        m +
         "-" +
-        date.getDate() +
+        d +
         " " +
-        date.getHours() +
+        h +
         ":" +
-        date.getMinutes() +
+        min +
         ":" +
-        date.getSeconds();
+        sec;
       return c;
     }
   }
@@ -194,9 +199,9 @@ export default {
           line-height: 30px;
           overflow-x: scroll;
         }
-       .text_r::-webkit-scrollbar {
-        display: none;
-      }
+        .text_r::-webkit-scrollbar {
+          display: none;
+        }
       }
     }
   }

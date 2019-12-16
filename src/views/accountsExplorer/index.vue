@@ -105,10 +105,21 @@ export default {
     changindex(index) {
       this.theindex = index;
     },
-    changedate(index) {
+      changedate(index) {
       var date = new Date(index);
+      var m =
+        date.getMonth() > 9 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1);
+      var d = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
+      var h = date.getHours() > 9 ? date.getDate() : "0" + date.getDate();
+      var min =date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes();
+      var sec =date.getSeconds() > 9 ? date.getSeconds() : "0" + date.getSeconds();
+
       var c =
-        date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+        date.getFullYear() +
+        "-" +
+        m +
+        "-" +
+        d 
       return c;
     }
   }
