@@ -7,17 +7,46 @@
       <div class="homecInfos" v-if="shouldShowAddressTrade == ''">
         <div class="title">{{$t('a1')}}</div>
         <div class="homecInfosbox">
-          <div class="homecInfosbox-text">
-            <div class="text_l">交易费用</div>
-            <div class="text_r">{{fee?fee:'暂不显示'}}</div>
+           <div class="homecInfosbox-text">
+            <div class="text_l">{{$t('a4')}}</div>
+            <div class="text_r">{{getLedger['closeTimeResolution']?getLedger['closeTimeResolution']:'-'}}</div>
           </div>
             <div class="homecInfosbox-text">
-            <div class="text_l">分类账</div>
-            <div class="text_r">{{ledgerVersion?ledgerVersion:'暂不显示'}}</div>
+            <div class="text_l">{{$t('a5')}}</div>
+            <div class="text_r">{{getLedger['ledgerVersion']?getLedger['ledgerVersion']:'-'}}</div>
+          </div>
+          <div class="homecInfosbox-text">
+            <div class="text_l">{{$t('a6')}}</div>
+            <div class="text_r">{{fee?fee:'-'}}</div>
+          </div>
+          <div class="homecInfosbox-text">
+            <div class="text_l">{{$t('a7')}}</div>
+            <div class="text_r">{{getLedger['closeTime']? changedate(getLedger['closeTime']):'-'}}</div>
+          </div>
+          <div class="homecInfosbox-text">
+            <div class="text_l">{{$t('a8')}}</div>
+            <div class="text_r">{{getLedger['transactionHash']? changedate(getLedger['transactionHash']):'-'}}</div>
+          </div>
+          <div class="homecInfosbox-text">
+            <div class="text_l">{{$t('a9')}}</div>
+            <div class="text_r">{{getLedger['totalDrops']?getLedger['totalDrops']:'-'}}</div>
+          </div>
+          <div class="homecInfosbox-text">
+            <div class="text_l">{{$t('a10')}}</div>
+            <div class="text_r">{{getLedger['parentCloseTime']?changedate(getLedger['parentCloseTime']):'-'}}</div>
+          </div>
+     
+          <div class="homecInfosbox-text">
+            <div class="text_l">{{$t('a11')}}</div>
+            <div class="text_r">{{getLedger['parentLedgerHash']?getLedger['parentLedgerHash']:'-'}}</div>
+          </div>
+          <div class="homecInfosbox-text">
+            <div class="text_l">{{$t('a12')}}</div>
+            <div class="text_r">{{getLedger['stateHash']?getLedger['stateHash']:'-'}}</div>
           </div>
         </div>
       </div>
-      <accountsExplorer v-if="shouldShowAddressTrade == 'address'" :balances="balances" :history="transactions"/>
+      <accountsExplorer v-if="shouldShowAddressTrade == 'address'" :balances="balances" :history="transactions" />
       <trade v-if="shouldShowAddressTrade == 'trade'" :transaction="transaction"/>
     </div>
     <Footer></Footer>
@@ -37,7 +66,8 @@ export default {
       balances: [],
       transactions: [],
       msg: "",
-      transaction: ""
+      transaction: "",
+      getLedger: {},
     };
   },
   created() {
@@ -54,30 +84,30 @@ export default {
         await API.connect();
         this.fee = await API.getFee();
         this.ledgerVersion = await API.getLedgerVersion();
+        this.getLedger = await API.getLedger();
       } catch (error) {
         // 如果
         console.log(error);
       }
     },
     async handleSearch(ctx) {
-      this.msg = ''
+      this.msg = "";
       //验证输入内容是地址或者ID
-      console.log(API.isValidAddress(ctx),)
       if (API.isValidAddress(ctx)) {
-        console.log("isadress", "----------------");
         //地址:rGSZEScvDJ6sXwyyq31iVAzmjSncV29TLR
         // rGii6WxApQAjjndZZQbSzPpY7pmikfnv2Y
-        this.shouldShowAddressTrade = "address";
+        //  rERuBTMQ9jSKAhbNNkKv95MRCr9GGRmqFi
         try {
+          this.shouldShowAddressTrade = "address";
           await API.connect();
           this.balances = [];
           this.transactions = [];
           this.balances = await API.getBalances(ctx);
           this.transactions = await API.getTransactions(ctx);
-          console.log(this.transactions)
+        
+       
         } catch (err) {
-          console.log("未查询到结果");
-           this.msg = '该地址尚未查询到结果'
+          this.msg = this.$t('a13')
           console.log(err);
         }
       } else if (/^[A-F0-9]{64}$/.test(ctx)) {
@@ -85,19 +115,35 @@ export default {
         //交易ID:C93F0E3A1C356BC5326A14726D415D6DDC5F657E51D32F3001EF8BABC10D90B0
         try {
           await API.connect();
+          this.transaction = "";
           this.transaction = await API.getTransaction(ctx);
           this.shouldShowAddressTrade = "trade";
-          console.log(this.transaction)
         } catch (err) {
-          console.log(err)
-          this.msg = "尚未查询到相关交易记录"
+          console.log(err);
+          this.msg = this.$t('a14')
         }
       } else {
-        this.msg = "地址或交易ID输入格式有误！";
+        this.msg = this.$t('a15')
         this.shouldShowAddressTrade = "";
         //地址或交易TX有误
       }
     },
+    changedate(index) {
+      var date = new Date(index);
+      var c =
+        date.getFullYear() +
+        "-" +
+        (date.getMonth() + 1) +
+        "-" +
+        date.getDate() +
+        " " +
+        date.getHours() +
+        ":" +
+        date.getMinutes() +
+        ":" +
+        date.getSeconds();
+      return c;
+    }
   }
 };
 </script>
@@ -133,17 +179,24 @@ export default {
       font-size: 16px;
       .homecInfosbox-text {
         display: flex;
-
         border-bottom: 1px solid #0c132f;
         align-items: center;
-        height: 50px;
+        min-height: 50px;
+        flex-wrap: wrap;
+        line-height: 50px;
         justify-content: space-between;
         .text_l {
           color: #8a8fa0;
+          line-height: 30px;
         }
         .text_r {
           color: #ffffff;
+          line-height: 30px;
+          overflow-x: scroll;
         }
+       .text_r::-webkit-scrollbar {
+        display: none;
+      }
       }
     }
   }

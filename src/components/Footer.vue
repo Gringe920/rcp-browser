@@ -1,7 +1,7 @@
 <template>
   <div class="footerall">
     <div class="footerbox">
-      <div>COPYRIGHT © 2019 RCP ALL RIGHTS RESERVED</div>
+      <div>{{$t('a17')}}</div>
     </div>
   </div>
 </template>

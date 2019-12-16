@@ -50,155 +50,155 @@
         <!-- title-tab -->
         <div class="title">
           <span class="d-title" :class="{'active': activeIndex == 0}" @click="activeIndex = 0">
-            Description
+            {{$t('a23')}}
           </span>
           <span class="d-title" :class="{'active': activeIndex == 1}" @click="activeIndex = 1">
-            Raw
+              {{$t('a24')}}
           </span>
         </div>
         <!-- description  -->
         <div class="description-content" v-if="activeIndex == 0">
           <div class="status-box box">
-            <div class="des-title">STATUS：</div>
-            <div class="des-content">This transaction was successful, and validated in ledger <span class="green">{{transaction.outcome.ledgerVersion}}</span>  on <span class="blue">{{new Date(transaction.outcome.timestamp).toGMTString()}}.</span></div>
+            <div class="des-title">   {{$t('a25' )}}：</div>
+            <div class="des-content">   {{$t('a26')}} <span class="green">{{transaction.outcome.ledgerVersion}}</span>     {{$t('a27')}} <span class="blue">{{new Date(transaction.outcome.timestamp).toGMTString()}}.</span></div>
           </div>
           <div class="description-box box">
-            <div class="des-title">DESCRIPTION：</div>
-            <div class="des-content">This is a <span class="green">{{transaction.type}}</span> transaction.</div>
-            <div class="des-content">The payment is from  <span class="white">{{transaction.specification.destination.address}}</span> to <span class="white">{{transaction.address}}.</span></div>
-            <div class="des-content">It was instructed to deliver {{transaction.outcome.deliveredAmount.value}} {{transaction.outcome.deliveredAmount.currency}}. <span class="white">{{transaction.address}}</span>  by spending up to {{transaction.outcome.deliveredAmount.value}} </div>
+            <div class="des-title">   {{$t('a28')}}</div>
+            <div class="des-content">{{$t('a29')}} <span class="green">{{transaction.type}}</span>  {{$t('a30')}}</div>
+            <div class="des-content"> {{$t('a31')}} <span class="white">{{transaction.specification.destination.address}}</span>  {{$t('a32')}}<span class="white">{{transaction.address}}.</span></div>
+            <div class="des-content"> {{$t('a33')}} {{transaction.outcome.deliveredAmount.value}} {{transaction.outcome.deliveredAmount.currency}}. <span class="white">{{transaction.address}}</span>   {{$t('a34')}}{{transaction.outcome.deliveredAmount.value}} </div>
             <div class="des-content">{{transaction.outcome.deliveredAmount.currency}}.<span class="white">{{transaction.address}}</span></div>
-            <div class="des-content">The actual amount delivered was {{transaction.outcome.deliveredAmount.value}} {{transaction.outcome.deliveredAmount.currency}}.<span class="white">{{transaction.address}}</span></div>
-            <div class="des-content">The transaction's sequence number is {{transaction.sequence}}</div>
+            <div class="des-content"> {{$t('a35')}} {{transaction.outcome.deliveredAmount.value}} {{transaction.outcome.deliveredAmount.currency}}.<span class="white">{{transaction.address}}</span></div>
+            <div class="des-content"> {{$t('a36')}}{{transaction.sequence}}</div>
           </div>
           <div class="memos-box box">
-            <div class="des-title">MEMOS：</div>
-            <div class="des-content">The transaction has {{transaction.specification.memos.length > 0 && transaction.specification.memos[0].data}} memos.</div>
+            <div class="des-title"> {{$t('a37')}}</div>
+            <div class="des-content"> {{$t('a38')}} {{transaction.specification.memos.length > 0 && transaction.specification.memos[0].data}} {{$t('a39')}}</div>
           </div>
           <div class="cost-box box">
-            <div class="des-title">TRANSACTION COST：</div>
-            <div class="des-content">Sending this transaction consumed {{transaction.outcome.deliveredAmount.value}} {{transaction.outcome.deliveredAmount.currency}}.</div>
+            <div class="des-title"> {{$t('a40')}}</div>
+            <div class="des-content"> {{$t('a41')}} {{transaction.outcome.deliveredAmount.value}} {{transaction.outcome.deliveredAmount.currency}}.</div>
           </div>
           <div class="flags-box box">
-            <div class="des-title">FLAGS：</div>
-            <div class="des-content">The transaction specified the following flags:</div>
-            <div class="des-content"><span class="green">● tfFullyCanonicalSig</span></div>
-            <div class="des-content"><span class="green">● tfPartialPayment</span></div>
+            <div class="des-title"> {{$t('a42')}}：</div>
+            <div class="des-content">T {{$t('a43')}}</div>
+            <div class="des-content"><span class="green">●  {{$t('a44')}}</span></div>
+            <div class="des-content"><span class="green">●  {{$t('a45')}}</span></div>
           </div>
           <div class="affected-box box">
-            <div class="des-title">AFFECTED LEDGER NODES：</div>
-            <div class="des-content">● It modified the <span class="red">AccountRoot</span>  node of {{transaction.address}}</div>
-            <div class="des-content"><span class="green">● Balance reduced by 0.007099 from 12.644348 to 12.637249 {{transaction.outcome.deliveredAmount.currency}}</span></div>
-            <div class="des-content">● It modified a {{transaction.outcome.deliveredAmount.currency}} <span class="red">RippleState</span>  node between <span class="white">{{transaction.specification.destination.address}}</span>  and <span class="white">{{transaction.address}}</span></div>
-            <div class="des-content"><span class="green">● Balance changed by 0.146284 from 0.146282 to 0.292566 {{transaction.outcome.deliveredAmount.currency}}</span></div>
+            <div class="des-title"> {{$t('a46')}}</div>
+            <div class="des-content">●  {{$t('a8')}} <span class="red"> {{$t('a47')}}</span>   {{$t('a49')}} {{transaction.address}}</div>
+            <div class="des-content"><span class="green">● {{$t('a50')}} {{transaction.outcome.deliveredAmount.currency}}</span></div>
+            <div class="des-content">●  {{$t('a51')}}{{transaction.outcome.deliveredAmount.currency}} <span class="red">{{$t('a79')}}</span>  {{$t('a80')}} <span class="white">{{transaction.specification.destination.address}}</span>   {{$t('a53')}} <span class="white">{{transaction.address}}</span></div>
+            <div class="des-content"><span class="green">●  {{$t('a3')}} {{transaction.outcome.deliveredAmount.currency}}</span></div>
           </div>
           <div class="modified-box box"></div>
         </div>
         <!-- raw  -->
         <div class="raw-content" v-if="activeIndex == 1">
-          <div class="object-raw-title">Object</div>
+          <div class="object-raw-title">{{$t('a54')}}</div>
           <div class="raw-item">
-            <span>hash：</span>
+            <span>{{$t('a55')}}</span>
             <span class="green">"{{transaction.id}}"</span>
           </div>
           <div class="raw-item">
-            <span>ledger_index：</span>
+            <span>{{$t('a56')}}</span>
             <span class="red">{{transaction.outcome.ledgerVersion}}</span>
           </div>
           <div class="raw-item">
-            <span>date：</span>
+            <span>{{$t('a57')}}</span>
             <span class="red">{{new Date(transaction.outcome.timestamp).toGMTString()}}</span>
           </div>
           <div class="raw-item indent">
-            <span>tx：</span>
-            <span>Object</span>
+            <span>{{$t('a58')}}</span>
+            <span>{{$t('a54')}}</span>
           </div>
           <div class="raw-item">
-            <span>TransactionType：</span>
+            <span>{{$t('a60')}}</span>
             <span class="green">{{transaction.type}}</span>
           </div>
           <div class="raw-item">
-            <span>Flags：</span>
+            <span>{{$t('a61')}}</span>
             <span class="red">{{transaction.type}}</span>
           </div>
           <div class="raw-item">
-            <span>Sequence：</span>
+            <span>{{$t('a62')}}</span>
             <span class="red">{{transaction.sequence}}</span>
           </div>
           <div class="raw-item">
-            <span>LastLedgerSequence：</span>
+            <span>{{$t('a63')}}：</span>
             <span class="red">{{transaction.outcome.indexInLedger}}</span>
           </div>
           <div class="raw-item indent">
-            <span>Amount：</span>
-            <span class="white">Object</span>
+            <span>{{$t('a64')}}：</span>
+            <span class="white">{{$t('a54')}}</span>
           </div>
           <div class="raw-item">
-            <span>value：</span>
+            <span>{{$t('a65')}}</span>
             <span class="green">{{transaction.outcome.deliveredAmount.value}}</span>
           </div>
           <div class="raw-item">
-            <span>currency：</span>
+            <span>{{$t('a66')}}</span>
             <span class="green">{{transaction.outcome.deliveredAmount.currency}}</span>
           </div>
           <div class="raw-item">
-            <span>issuer：</span>
+            <span>{{$t('a67')}}：</span>
             <span class="green">{{transaction.address}}</span>
           </div>
           <div class="raw-item">
-            <span>SigningPubkey：</span>
+            <span>{{$t('a68')}}</span>
             <span class="green">{{transaction.id}}</span>
           </div>
           <div class="raw-item">
-            <span>TxnSignature：</span>
+            <span>{{$t('a69')}}</span>
             <span class="green">{{transaction.id}}</span>
           </div>
           <div class="raw-item">
-            <span>Account：</span>
+            <span>{{$t('a70')}}</span>
             <span class="green">{{transaction.address}}</span>
           </div>
           <div class="raw-item">
-            <span>Destination：</span>
+            <span>{{$t('a71')}}</span>
             <span class="green">{{transaction.specification.destination.address}}</span>
           </div>
           <div class="raw-item indent">
-            <span>meta：</span>
-            <span class="white">Object</span>
+            <span>{{$t('a72')}}：</span>
+            <span class="white">{{$t('a54')}}</span>
           </div>
           <div class="raw-item">
-            <span>TransactionIndex：</span>
+            <span>{{$t('a73')}}</span>
             <span class="red">37</span>
           </div>
           <div class="raw-item indent">
-            <span>AffectedNotes：</span>
+            <span>{{$t('a74')}}</span>
             <span class="white">Array[2]</span>
           </div>
           <div class="raw-item indent">
-            <span>0：</span>
-            <span class="white">Object</span>
+            <span>{{$t('a75')}}</span>
+            <span class="white">{{$t('a59')}}</span>
           </div>
           <div class="raw-item indent">
-            <span>1：</span>
-            <span class="white">Object</span>
+            <span>{{$t('a76')}}</span>
+            <span class="white">{{$t('a59')}}</span>
           </div>
           <div class="raw-item">
-            <span>TransactionResult：</span>
+            <span>{{$t('a77')}}</span>
             <span class="green">{{transaction.outcome.result}}</span>
           </div>
           <div class="raw-item indent">
-            <span>delivered_amount：</span>
-            <span class="white">Object</span>
+            <span>{{$t('a78')}}</span>
+            <span class="white">{{$t('a59')}}</span>
           </div>
           <div class="raw-item">
-            <span>value：</span>
+            <span>{{$t('a65')}}</span>
             <span class="white">{{transaction.outcome.deliveredAmount.value}}</span>
           </div>
           <div class="raw-item">
-            <span>currency：</span>
+            <span>{{$t('a66')}}</span>
             <span class="white">{{transaction.outcome.deliveredAmount.currency}}</span>
           </div>
           <div class="raw-item">
-            <span>issuer：</span>
+            <span>{{$t('a67')}}</span>
             <span class="white">{{transaction.address}}</span>
           </div>
         </div>

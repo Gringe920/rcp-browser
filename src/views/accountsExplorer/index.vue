@@ -2,16 +2,15 @@
 <!-- 帐户资源信息 -->
   <div class="accountsExplorer">
     <div class="balances">
-      <!-- <h2>{{history[0]}}</h2> -->
-      <div class="text2">balance</div>
-
-      <Empty v-if="balances.length <= 0"></Empty>
+      <div class="text2" >{{$t('a18')}}</div>
+      <load v-if="balances.length <= 0 && !show"></load>
+      <Empty v-if="balances.length <= 0 && show"></Empty>
       <div v-else class="infosBox" v-for=" (item,index) in balances"  :key="index">
         <div class="infostext">
             <div class="l2">
           <div class="yuan" :class="index %2 == 0?'lv':'lan'"></div>
           <div class="coin">{{item['currency'] ? changeXRP(item['currency']):"-"}}</div>
-          <div class="num">{{item['value'] ? item['value']:"-"}}===={{index}}-{{theindex}}</div>
+          <div class="num">{{item['value'] ? item['value']:"-"}}</div>
         </div>
         <div class="r2">
             <img  v-if="theindex != index"   @click="changindex(index)" src="../../assets/images/triangle_gray@2x.png" alt="" srcset="" >
@@ -20,15 +19,15 @@
         </div>
         <div class="infodetails" v-if="theindex == index">
           <div class="text">
-            <div class="l">币种</div>
+            <div class="l">{{$t('a19')}}</div>
             <div class="r">{{item['currency'] ? changeXRP(item['currency']):"-"}}</div>
           </div>
              <div class="text">
-            <div class="l">余额</div>
+            <div class="l">{{$t('a20')}}</div>
             <div class="r">{{item['value'] ? item['value']:"-"}}</div>
           </div>
              <div class="text" v-if="item['counterparty']">
-            <div class="l">adress:</div>
+            <div class="l">{{$t('a21')}}:</div>
           </div>
              <div class="text text3" v-if="item['counterparty']">
             <div class="l">{{item['counterparty'] ? item['counterparty']:"-"}}</div>
@@ -37,14 +36,15 @@
       </div>
     </div> 
     <div class="history">
-      <div class="text2" @click="show2">History</div>
-      <Empty v-if="history.length <= 0"></Empty>
+      <div class="text2">{{$t('a22')}}</div>
+        <load v-if="history.length <= 0 && !show2 "></load>
+      <Empty v-if="history.length <= 0 && show2 "></Empty>
       <div class="hisbox" v-else v-for="(item,index) in history" :key='index'>
         <div class="his_l">
           <img src="../../assets/images/next_step@2x.png" alt="" srcset="">
           <div class="text">
-            <span>{{item['outcome']['deliveredAmount']['value']?'1':"-"}}</span>
-            &nbsp;{{changeXRP(item['outcome']['deliveredAmount']['currency'])?changeXRP(item['outcome']['deliveredAmount']['currency']):"-"}}&nbsp;
+            <span>{{item['outcome']['deliveredAmount']?item['outcome']['deliveredAmount']['value']:"-"}}</span>
+            &nbsp;{{changeXRP(item['outcome']['deliveredAmount'])?changeXRP(item['outcome']['deliveredAmount']['currency']):"-"}}&nbsp;
              {{changedate(item['outcome']['timestamp'])?changedate(item['outcome']['timestamp']):'-'}} 
           </div>
         </div>
@@ -61,8 +61,28 @@ export default {
   data() {
     return {
       theindex: 9999,
-      zhuCoin: "RCP"
+      show: false,
+      show2:false
     };
+  },
+  watch: {
+    balances(n, o) {
+      var _self = this
+       _self.show = false
+      console.log('rGSZEScvDJ6sXwyyq31iVAzmjSncV29TLR',this.load)
+      this.theindex = 9999;
+      setTimeout(() => {
+          _self.show = true;
+      }, 2000);
+    },
+    history() {
+      var _self = this
+       _self.show2 = false
+      this.theindex = 9999;
+         setTimeout(() => {
+          _self.show2 = true;
+      }, 2000);
+    }
   },
   props: {
     balances: {
@@ -71,25 +91,19 @@ export default {
     },
     history: {
       type: Array
-    }
+       
+    },
   },
   mouned() {},
   methods: {
     changeXRP(coin) {
       if (coin == "XRP" || coin == "xrp") {
-        var coin = this.zhuCoin ;
+        var coin = this.$t('zhuCoin');
       }
       return coin;
     },
-    changindex(index){
-      console.log(index,'====================index')
+    changindex(index) {
       this.theindex = index;
-      
-      console.log(index,this.theindex,'====================index')
-    },
-    show2() {
-      console.log(this.balances);
-      console.log(this.history);
     },
     changedate(index) {
       var date = new Date(index);
@@ -220,7 +234,7 @@ export default {
         }
       }
       .his_r {
-        width: 100%;
+        max-width: 100%;
         overflow-x: scroll;
         color: #00c28f;
       }

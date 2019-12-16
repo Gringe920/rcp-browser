@@ -1,7 +1,7 @@
 <template>
   <section class="empty">
   
-    <div class="text">暂无数据</div>
+    <div class="text">{{$t('a16')}}</div>
   </section>
 </template>
 <script>

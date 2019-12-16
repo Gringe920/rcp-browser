@@ -1,15 +1,12 @@
 <template>
 <div class="search">
   <div class="searchbox">
-    <input type="text" placeholder="请输入搜索内容" v-model="serachtext" @input="handleInput"/>
-    <div class="go" @click="gotoSearch">go</div>
-  
+    <input type="text" :placeholder="$t('a2')" v-model="serachtext" @input="handleInput"/>
+    <div class="go" @click="gotoSearch">{{$t('a3')}}</div>
   </div>
   <div class="msg" v-if="msg">{{msg}}</div>
 </div>
-
 </template>
-
 <script>
 export default {
   props: ["searchContent", "msg"],
