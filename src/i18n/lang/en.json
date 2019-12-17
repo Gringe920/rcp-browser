@@ -33,7 +33,7 @@
   "a31":"The payment is from",
   "a32":"to",
   "a33":"It was instructed to deliver",
-  "a34":"by spending up to",
+  "a34":"by spending up to ",
   "a35":"The actual amount delivered was",
   "a36":"The transaction's sequence number is",
   "a37":"MEMOS:",
@@ -49,10 +49,10 @@
   "a47":"AccountRoot",
   "a48":"It modified the ",
   "a49":"node of",
-  "a50":"Balance reduced by 0.007099 from 12.644348 to 12.637249",
+  "a50":"Balance reduced by",
   "a51":" It modified a",
   "a52":"and",
-  "a53":"Balance changed by 0.146284 from 0.146282 to 0.292566 ",
+  "a53":"Balance changed by ",
   "a54":"Object",
   "a55":"hash:",
   "a56":"ledger_index:",
@@ -79,5 +79,8 @@
   "a77":"TransactionResult:",
   "a78":"delivered_amount:",
   "a79":"ippleState",
-  "a80":"node between "
+  "a80":"node between ",
+  "a81": "It affected 2 nodes in the ledger",
+  "a82": "MODIFIED NODES：",
+  "a83": "from"
 } 

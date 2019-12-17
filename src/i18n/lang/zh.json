@@ -79,5 +79,8 @@
   "a77":"TransactionResult:",
   "a78":"delivered_amount:",
   "a79":"ippleState",
-  "a80":"node between "
+  "a80":"node between ",
+  "a81":"It affected 2 nodes in the ledger",
+  "a82":"MODIFIED NODES：",
+  "a83":"from"
 } 

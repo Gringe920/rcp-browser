@@ -65,15 +65,15 @@
           <div class="description-box box">
             <div class="des-title">   {{$t('a28')}}</div>
             <div class="des-content">{{$t('a29')}} <span class="green">{{transaction.type}}</span>  {{$t('a30')}}</div>
-            <div class="des-content"> {{$t('a31')}} <span class="white">{{transaction.specification.destination.address}}</span>  {{$t('a32')}}<span class="white">{{transaction.address}}.</span></div>
-            <div class="des-content"> {{$t('a33')}} {{transaction.outcome.deliveredAmount.value}} {{changeXRP(transaction.outcome.deliveredAmount.currency)}}. <span class="white">{{transaction.address}}</span>   {{$t('a34')}}{{transaction.outcome.deliveredAmount.value}} </div>
+            <div class="des-content"> {{$t('a31')}} <span class="white">{{transaction.specification.destination.address}} </span>  {{$t('a32')}} <span class="white">{{transaction.specification.destination.address}}.</span></div>
+            <div class="des-content"> {{$t('a33')}} {{transaction.outcome.deliveredAmount.value}} {{changeXRP(transaction.outcome.deliveredAmount.currency)}}. <span class="white">{{transaction.specification.destination.address}}</span>   {{$t('a34')}}{{transaction.outcome.deliveredAmount.value}} </div>
             <div class="des-content">{{changeXRP(transaction.outcome.deliveredAmount.currency)}}.<span class="white">{{transaction.address}}</span></div>
             <div class="des-content"> {{$t('a35')}} {{transaction.outcome.deliveredAmount.value}} {{changeXRP(transaction.outcome.deliveredAmount.currency)}}.<span class="white">{{transaction.address}}</span></div>
-            <div class="des-content"> {{$t('a36')}}{{transaction.sequence}}</div>
+            <div class="des-content"> {{$t('a36')}} {{transaction.sequence}}</div>
           </div>
           <div class="memos-box box">
             <div class="des-title"> {{$t('a37')}}</div>
-            <div class="des-content"> {{$t('a38')}} {{transaction.specification.memos.length > 0 && transaction.specification.memos[0].data}} {{$t('a39')}}</div>
+            <div class="des-content"> {{$t('a38')}}<span v-for="(item, index) in transaction.specification.memos" :key="index"> {{item.data}}</span> {{$t('a39')}}</div>
           </div>
           <div class="cost-box box">
             <div class="des-title"> {{$t('a40')}}</div>
@@ -87,15 +87,19 @@
           </div>
           <div class="affected-box box">
             <div class="des-title"> {{$t('a46')}}</div>
-            <div class="des-content">●  {{$t('a8')}} <span class="red"> {{$t('a47')}}</span>   {{$t('a49')}} {{transaction.address}}</div>
-            <div class="des-content"><span class="green">● {{$t('a50')}} {{changeXRP(transaction.outcome.deliveredAmount.currency)}}</span></div>
-            <div class="des-content">●  {{$t('a51')}}{{changeXRP(transaction.outcome.deliveredAmount.currency)}} <span class="red">{{$t('a79')}}</span>  {{$t('a80')}} <span class="white">{{transaction.specification.destination.address}}</span>   {{$t('a53')}} <span class="white">{{transaction.address}}</span></div>
-            <div class="des-content"><span class="green">●  {{$t('a3')}} {{changeXRP(transaction.outcome.deliveredAmount.currency)}}</span></div>
+            <div class="des-content">{{$t('a81')}}</div>
           </div>
-          <div class="modified-box box"></div>
+            <!-- <div class="des-content"><span class="green">●  {{$t('a3')}} {{changeXRP(transaction.outcome.deliveredAmount.currency)}}</span></div> -->
+          <div class="modified-box box">
+            <div class="des-title"> {{$t('a82')}}</div>
+            <div class="des-content">●  {{$t('a48')}} <span class="red"> {{$t('a47')}}</span> {{$t('a49')}} {{transaction.specification.destination.address}}</div>
+            <div class="des-content"><span class="green">● {{$t('a50')}} {{transaction.outcome.fee}} {{$t('a83')}} {{transaction.outcome.balanceChanges[transaction.address][0].value}} {{$t('a32')}} {{transaction.outcome.balanceChanges[transaction.specification.destination.address][0].value}} {{changeXRP(transaction.outcome.deliveredAmount.currency)}}</span></div>
+            <div class="des-content">●  {{$t('a51')}} {{changeXRP(transaction.outcome.deliveredAmount.currency)}} <span class="red">{{$t('a79')}}</span>  {{$t('a80')}} <span class="white">{{transaction.address}}</span> {{$t('a52')}}  <span class="white">{{transaction.specification.destination.address}}</span>  </div>
+            <div class="des-content"><span class="green">●  {{$t('a53')}} {{transaction.outcome.fee}} from {{transaction.outcome.balanceChanges[transaction.address][0].value}} to {{transaction.outcome.balanceChanges[transaction.specification.destination.address][0].value}}</span></div>
+          </div>
         </div>
         <!-- raw  -->
-        <div class="raw-content" v-if="activeIndex == 1">
+        <!-- <div class="raw-content" v-if="activeIndex == 1">
           <div class="object-raw-title">{{$t('a54')}}</div>
           <div class="raw-item">
             <span>{{$t('a55')}}</span>
@@ -200,6 +204,9 @@
             <span>{{$t('a67')}}</span>
             <span class="white">{{transaction.address}}</span>
           </div>
+        </div> -->
+        <div class="raw-content" v-if="activeIndex == 1">
+          <pre>{{JSON.stringify(transaction, null, 4)}}</pre>
         </div>
       </div>
   </section>
@@ -339,9 +346,10 @@ export default {
     }
     .raw-content{
       padding:20px;
+      color: #fff;
+      font-size: 12px;
       .object-raw-title{
         font-size: 14px;
-        color: #fff;
         margin-bottom: 7px;
       }
       .raw-item{

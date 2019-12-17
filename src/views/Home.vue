@@ -133,6 +133,7 @@ export default {
           this.transaction = "";
           this.transaction = await API.getTransaction(ctx);
           this.shouldShowAddressTrade = "trade";
+          console.log(this.transaction)
         } catch (err) {
           this.shouldShowAddressTrade = "";
           this.msg = this.$t("a14");
