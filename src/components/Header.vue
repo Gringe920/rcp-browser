@@ -3,15 +3,15 @@
     <div class="headerbox">
       <div class="header_l">
         <img src="../assets/images/logo.png" alt="" srcset="">
-      </div>  
-      <div class="header_r" @click="show =!show">
+      </div>
+      <!--<div class="header_r" @click="show =!show">
         <div class="div1">{{languange}}</div>
         <img  v-if='!show' src="../assets/images/triangle_gray@2x.png" alt="" srcset="">
           <img  v-else  src="../assets/images/triangle_gray_upper@2x.png" alt="" srcset="">
         <div class="change" v-if="show" >
           <div @click="selectLang(item)"  :class="item.name == languange? 'active':''" v-for="(item,index) in langList" :key='index'>{{item.name}}</div>
         </div>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>

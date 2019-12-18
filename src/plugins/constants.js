@@ -1,1 +1,1 @@
-export const SERVER = 'ws://s1.rcproto.org:6060';
+export const SERVER = 'wss://wss1.rcproto.org';
