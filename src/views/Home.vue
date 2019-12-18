@@ -110,9 +110,11 @@ export default {
         // rGii6WxApQAjjndZZQbSzPpY7pmikfnv2Y
         //  rERuBTMQ9jSKAhbNNkKv95MRCr9GGRmqFicd
         //  rERuBTMQ9jSKAhbNNkKv95MRCr9GGRmqFi
+        // rPCsx4XtaepmpNUJZTJxQCAawdEvew8czk
         this.$router.push({ path: "home", query: { id: ctx } });
         try {
           this.shouldShowAddressTrade = "address";
+          await API.disconnect();
           await API.connect();
           this.balances = [];
           this.transactions = [];
@@ -133,7 +135,6 @@ export default {
           this.transaction = "";
           this.transaction = await API.getTransaction(ctx);
           this.shouldShowAddressTrade = "trade";
-          console.log(this.transaction)
         } catch (err) {
           this.shouldShowAddressTrade = "";
           this.msg = this.$t("a14");
