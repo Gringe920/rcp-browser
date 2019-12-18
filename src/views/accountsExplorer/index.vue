@@ -61,24 +61,24 @@ export default {
     return {
       theindex: 9999,
       show: false,
-      show2:false
+      show2: false
     };
   },
   watch: {
     balances(n, o) {
-      var _self = this
-       _self.show = false
+      var _self = this;
+      _self.show = false;
       this.theindex = 9999;
       setTimeout(() => {
-          _self.show = true;
+        _self.show = true;
       }, 2000);
     },
     history() {
-      var _self = this
-       _self.show2 = false
+      var _self = this;
+      _self.show2 = false;
       this.theindex = 9999;
-         setTimeout(() => {
-          _self.show2 = true;
+      setTimeout(() => {
+        _self.show2 = true;
       }, 2000);
     }
   },
@@ -88,38 +88,32 @@ export default {
     },
     history: {
       type: Array
-       
-    },
+    }
   },
   mouned() {},
   methods: {
-    toID(ctx){
-      this.$router.push({ path: 'home',query:{id:ctx}});
+    toID(ctx) {
+      this.$router.push({ path: "home", query: { id: ctx } });
     },
     changeXRP(coin) {
       if (coin == "XRP" || coin == "xrp") {
-        var coin = this.$t('zhuCoin');
+        var coin = this.$t("zhuCoin");
       }
       return coin;
     },
     changindex(index) {
       this.theindex = index;
     },
-      changedate(index) {
+    changedate(index) {
       var date = new Date(index);
-      var m =
-        date.getMonth() > 9 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1);
+      var m = date.getMonth() > 9 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1);
       var d = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
       var h = date.getHours() > 9 ? date.getDate() : "0" + date.getDate();
-      var min =date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes();
-      var sec =date.getSeconds() > 9 ? date.getSeconds() : "0" + date.getSeconds();
-
-      var c =
-        date.getFullYear() +
-        "-" +
-        m +
-        "-" +
-        d 
+      var min =
+        date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes();
+      var sec =
+        date.getSeconds() > 9 ? date.getSeconds() : "0" + date.getSeconds();
+      var c = date.getFullYear() + "-" + m + "-" + d;
       return c;
     }
   }
@@ -238,11 +232,11 @@ export default {
           margin-right: 0px;
         }
         .text {
-          .lvc{
+          .lvc {
             // text-transform: uppercase;
             color: #00c28f;
           }
-          .hon{
+          .hon {
             color: red;
           }
           color: #8a8fa0;
