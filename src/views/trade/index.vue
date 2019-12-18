@@ -73,7 +73,9 @@
           </div>
           <div class="memos-box box">
             <div class="des-title"> {{$t('a37')}}</div>
-            <div class="des-content"> {{$t('a38')}}<span v-for="(item, index) in transaction.specification.memos" :key="index"> {{item.data}}</span> {{$t('a39')}}</div>
+            <div class="des-content"> 
+              {{$t('a38')}}<span v-for="(item, index) in transaction.specification.memos" :key="index"> {{item.data}}</span> {{$t('a39')}}
+            </div>
           </div>
           <div class="cost-box box" v-if="deliveredAmount">
             <div class="des-title"> {{$t('a40')}}</div>
@@ -94,10 +96,11 @@
             <div class="des-title"> {{$t('a82')}}</div>
             <div class="des-content">●  {{$t('a48')}} <span class="red"> {{$t('a47')}}</span> {{$t('a49')}} {{destinationAddress}}</div>
             <div class="des-content" v-if="deliveredAmount && destinationAddress">
-              <span class="green">● {{$t('a50')}} {{transaction.outcome.fee}} {{$t('a83')}} {{transaction.outcome.balanceChanges[address][0].value}} {{$t('a32')}} {{transaction.outcome.balanceChanges[destinationAddress][0].value}} {{changeXRP(deliveredAmount.currency)}}</span>
+              <span class="green">● {{$t('a50')}} {{transaction.outcome.fee}} {{$t('a83')}} {{getIdValue(address)}} {{$t('a32')}} {{getIdValue(destinationAddress)}} {{changeXRP(deliveredAmount.currency)}}</span>
             </div>
+            
             <div class="des-content" v-if="deliveredAmount">●  {{$t('a51')}} {{changeXRP(deliveredAmount.currency)}} <span class="red">{{$t('a79')}}</span>  {{$t('a80')}} <span class="white">{{address}}</span> {{$t('a52')}}  <span class="white">{{destinationAddress}}</span>  </div>
-            <div class="des-content" v-if="destinationAddress"><span class="green">●  {{$t('a53')}} {{transaction.outcome.fee}} from {{transaction.outcome.balanceChanges[address][0].value}} to {{transaction.outcome.balanceChanges[destinationAddress][0].value}}</span></div>
+            <div class="des-content" v-if="destinationAddress"><span class="green">●  {{$t('a53')}} {{transaction.outcome.fee}} from {{getIdValue(address)}} to {{getIdValue(destinationAddress)}}</span></div>
           </div>
         </div>
         <!-- raw  -->
@@ -230,11 +233,18 @@ export default {
   },
   methods:{
       changeXRP(coin) {
-      if (coin == "XRP" || coin == "xrp") {
-        var coin = this.$t('zhuCoin');
+        if (coin == "XRP" || coin == "xrp") {
+          var coin = this.$t('zhuCoin');
+        }
+        return coin;
+      },
+      getIdValue(address){
+        const outcome = this.transaction.outcome;
+        if(outcome.balanceChanges && outcome.balanceChanges[address] && outcome.balanceChanges[address].length > 0){
+          return outcome.balanceChanges[address][0].value
+        }
+        return ''
       }
-      return coin;
-    },
   }
 }
 </script>
