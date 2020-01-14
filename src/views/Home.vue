@@ -7,6 +7,10 @@
             <div class="homecInfos" v-if="shouldShowAddressTrade == ''">
                 <div class="title">{{$t('a1')}}</div>
                 <div class="homecInfosbox">
+                    <div class="homecInfosbox-text" v-if="active_address_count">
+                        <div class="text_l">{{$t('a84')}}</div>
+                        <div class="text_r">{{active_address_count}}</div>
+                    </div>
                     <div class="homecInfosbox-text">
                         <div class="text_l">{{$t('a4')}}</div>
                         <div class="text_r">{{getLedger['closeTimeResolution']?getLedger['closeTimeResolution']:'-'}}</div>
@@ -23,10 +27,10 @@
                         <div class="text_l">{{$t('a7')}}</div>
                         <div class="text_r">{{getLedger['closeTime']? changedate(getLedger['closeTime']):'-'}}</div>
                     </div>
-                    <div class="homecInfosbox-text">
-                        <div class="text_l">{{$t('a8')}}</div>
-                        <div class="text_r">{{getLedger['transactionHash']? changedate(getLedger['transactionHash']):'-'}}</div>
-                    </div>
+                    <!--<div class="homecInfosbox-text">-->
+                        <!--<div class="text_l">{{$t('a8')}}</div>-->
+                        <!--<div class="text_r">{{getLedger['transactionHash']? changedate(getLedger['transactionHash']):'-'}}</div>-->
+                    <!--</div>-->
                     <div class="homecInfosbox-text">
                         <div class="text_l">{{$t('a9')}}</div>
                         <div class="text_r">{{getLedger['totalDrops']?getLedger['totalDrops']:'-'}}</div>
@@ -56,6 +60,7 @@
     import accountsExplorer from "./accountsExplorer";
     import trade from "./trade";
     import API from "../plugins/ripple.request";
+    import axios from "axios";
     import { log } from "util";
     export default {
         data() {
@@ -67,6 +72,7 @@
                 balances: [],
                 transactions: [],
                 msg: "",
+                active_address_count: 0,
                 transaction: "",
                 getLedger: {}
             };
@@ -80,6 +86,12 @@
             }
         },
         created() {
+            //active_address_count
+            if(this.$route.query.active_address_count){
+                this.active_address_count = this.$route.query.active_address_count;
+            }else{
+                this.getCount();
+            }
             if (this.searchContent) {
                 this.handleSearch(this.searchContent);
             } else {
@@ -91,6 +103,20 @@
             trade
         },
         methods: {
+            getCount (){
+                axios({
+                    url : "https://api.rcproto.org/service/rcp_info",
+                }).then(res => {
+                    if(res.data.error_code == 0){
+                        this.active_address_count = res.data.data.active_address_count || 0;
+                    }else{
+                        this.active_address_count = 0;
+                    }
+
+                }).catch(e => {
+                    this.active_address_count = 0;
+                })
+            },
             //getFee  getLedgerVersion 内容填充
             async initData() {
                 try {

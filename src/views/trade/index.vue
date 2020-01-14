@@ -233,10 +233,13 @@ export default {
   },
   methods:{
       changeXRP(coin) {
-        if (coin == "XRP" || coin == "xrp") {
-          var coin = this.$t('zhuCoin');
-        }
-        return coin;
+          if (coin == "XRP" || coin == "xrp") {
+              var coin = 'RCP';
+          }
+          if (coin == "UST" || coin == "ust") {
+              var coin = 'USDT';
+          }
+          return coin;
       },
       getIdValue(address){
         const outcome = this.transaction.outcome;

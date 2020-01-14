@@ -82,5 +82,6 @@
   "a80":"node between ",
   "a81": "It affected 2 nodes in the ledger",
   "a82": "MODIFIED NODES：",
-  "a83": "from"
-} 
+  "a83": "from",
+  "a84": "Active address Count"
+}
