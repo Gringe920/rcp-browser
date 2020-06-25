@@ -82,13 +82,14 @@
                     _self.show = true;
                 }, 2000);
             },
-            history() {
+            history(n, o) {
                 var _self = this;
-                _self.show2 = false;
-                this.theindex = 9999;
-                setTimeout(() => {
+                if(n.length > 0){
                     _self.show2 = true;
-                }, 2000);
+                }else{
+                    _self.show2 = false;
+                }
+                this.theindex = 9999;
             }
         },
         props: {

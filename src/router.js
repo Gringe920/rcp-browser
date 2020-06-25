@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Home from './views/Home2.vue'
 const Trade = () => import(/* webpackChunkName: "Trade" */ './views/trade/index.vue');
 const accountsExplorer = () => import(/* webpackChunkName: "Trade" */ './views/accountsExplorer/index.vue');
 const originalPush = Router.prototype.push

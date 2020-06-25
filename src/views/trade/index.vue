@@ -211,7 +211,7 @@
           </div>
         </div> -->
         <div class="raw-content" v-if="activeIndex == 1">
-          <pre>{{JSON.stringify(transaction, null, 4)}}</pre>
+          <pre>{{JSON.stringify(transaction, null, 4).replace(/XRP/g, 'RCP')}}</pre>
         </div>
       </div>
   </section>
@@ -332,7 +332,7 @@ export default {
     }
   }
   .description-raw{
-    width: 85%;
+    width: 100%;
     color: #8A8FA0;
     overflow: hidden;
     span.red{
