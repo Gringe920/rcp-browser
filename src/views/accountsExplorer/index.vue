@@ -39,27 +39,31 @@
             <div class="text2">{{$t('a22')}}</div>
             <load v-if="history.length <= 0 && !show2 "></load>
             <Empty v-if="history.length <= 0 && show2 "></Empty>
-            <div class="hisbox" @click="toID(item.id)" v-else v-for="(item,index) in history" :key='index'>
-                <div class="his_l">
-                    <div class="text">
-                        <span v-if="item['type'] == 'payment'"
-                              :class="item.specification && item.specification.source.address == $route.query.id ?'hon': 'hon2'">
-                            {{item['type'] ? item['type']:"-"}}
-                            {{item.specification.source.address == $route.query.id ? '-' : '+'}}
-                        </span>&nbsp;
-                        <span v-else> {{item['type'] ? item['type']:"-"}} </span>&nbsp;
-                        <span v-if="item['type'] == 'payment'" :class="item.specification && item.specification.source && item.specification.source.address == $route.query.id ?'hon': 'hon2'">
-                            {{ item.specification.source.maxAmount.value }} {{ changeXRP(item.specification.source.maxAmount.currency)}}
-                        </span>
-                    </div>
+            <template v-else  v-for="(item,index) in history">
+                <div class="hisbox" @click="toID(item.id)"  :key='index' v-if="item.address != 'rGsfo3dUWLxi8EjNBiUpmyBhSW5By3tWKM' && item.address != 'rnUdqCjqNkxZth8gE7Pj4jHRQJytVwStzT'">
+                    <template >
+                        <div class="his_l">
+                            <div class="text">
+                                <span v-if="item['type'] == 'payment'"
+                                      :class="item.specification && item.specification.source.address == $route.query.id ?'hon': 'hon2'">
+                                    {{item['type'] ? item['type']:"-"}}
+                                    {{item.specification.source.address == $route.query.id ? '-' : '+'}}
+                                </span>&nbsp;
+                                <span v-else> {{item['type'] ? item['type']:"-"}} </span>&nbsp;
+                                <span v-if="item['type'] == 'payment'" :class="item.specification && item.specification.source && item.specification.source.address == $route.query.id ?'hon': 'hon2'">
+                                    {{ item.specification.source.maxAmount.value }} {{ changeXRP(item.specification.source.maxAmount.currency)}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="his_r" v-if="item['type'] == 'payment'">
+                            {{item.specification.source.address == $route.query.id ? item.specification.destination.address : item.specification.source.address}}
+                        </div>
+                        <div class="his_r" v-else>
+                            {{item['address']?item['address']:'-'}}
+                        </div>
+                    </template>
                 </div>
-                <div class="his_r" v-if="item['type'] == 'payment'">
-                    {{item.specification.source.address == $route.query.id ? item.specification.destination.address : item.specification.source.address}}
-                </div>
-                <div class="his_r" v-else>
-                    {{item['address']?item['address']:'-'}}
-                </div>
-            </div>
+            </template>
         </div>
     </div>
 </template>

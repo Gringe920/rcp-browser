@@ -11,7 +11,7 @@
                         <p>Current block height</p>
                     </li>
                     <li>
-                        <h4>{{fee}}</h4>
+                        <h4>{{fee || '0.000012'}}</h4>
                         <p>Service Charge</p>
                     </li>
 
@@ -219,6 +219,10 @@
                     //  rERuBTMQ9jSKAhbNNkKv95MRCr9GGRmqFi
                     // rPCsx4XtaepmpNUJZTJxQCAawdEvew8czk
                     this.$router.push({ path: "home", query: { id: ctx } });
+                    if(ctx == "rGsfo3dUWLxi8EjNBiUpmyBhSW5By3tWKM" || ctx == "rnUdqCjqNkxZth8gE7Pj4jHRQJytVwStzT"){
+                        this.msg = this.$t("a13");
+                        return;
+                    }
                     try {
                         this.shouldShowAddressTrade = "address";
                         if(API.isConnected()){
