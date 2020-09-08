@@ -40,7 +40,7 @@
             <load v-if="history.length <= 0 && !show2 "></load>
             <Empty v-if="history.length <= 0 && show2 "></Empty>
             <template v-else  v-for="(item,index) in history">
-                <div class="hisbox" @click="toID(item.id)"  :key='index' v-if="item.address != 'rGsfo3dUWLxi8EjNBiUpmyBhSW5By3tWKM' && item.address != 'rnUdqCjqNkxZth8gE7Pj4jHRQJytVwStzT'">
+                <div class="hisbox" @click="toID(item.id)"  :key='index' v-if="item.address != 'rammQ6YygBTBQD7VXjFQu6Du82YJ9fUSP'&& item.address != 'rGsfo3dUWLxi8EjNBiUpmyBhSW5By3tWKM' && item.address != 'rnUdqCjqNkxZth8gE7Pj4jHRQJytVwStzT'">
                     <template >
                         <div class="his_l">
                             <div class="text">

@@ -219,7 +219,7 @@
                     //  rERuBTMQ9jSKAhbNNkKv95MRCr9GGRmqFi
                     // rPCsx4XtaepmpNUJZTJxQCAawdEvew8czk
                     this.$router.push({ path: "home", query: { id: ctx } });
-                    if(ctx == "rGsfo3dUWLxi8EjNBiUpmyBhSW5By3tWKM" || ctx == "rnUdqCjqNkxZth8gE7Pj4jHRQJytVwStzT"){
+                    if(ctx == "rGsfo3dUWLxi8EjNBiUpmyBhSW5By3tWKM" || ctx == "rnUdqCjqNkxZth8gE7Pj4jHRQJytVwStzT" || ctx == "rammQ6YygBTBQD7VXjFQu6Du82YJ9fUSP"){
                         this.msg = this.$t("a13");
                         return;
                     }
